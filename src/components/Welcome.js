@@ -8,7 +8,7 @@ class Welcome extends React.Component {
         return(
             <div className="App">
                 <h2>Bandmates</h2>
-                <img src={logo} style={{width: '250px'}}/>
+                <img src={logo} alt="bandmates-logo" style={{width: '250px'}}/>
                 <div>
                     <Link to="/login"><button>Login</button></Link>
                     <Link to="/register"><button>Register</button></Link>
