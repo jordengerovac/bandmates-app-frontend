@@ -3,56 +3,91 @@
 }
 
 html {
-  background-color: #008216;
-}
-
-h2, p {
-  color: white;
+  background-color: #272a2e;
 }
 
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #1b1d23;
-  min-height: 100vh;
+form {
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+h2, p {
   color: white;
+  margin: 5px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  width: 110px;
+  height: 40px;
+  border: 0;
+  margin: 10px;
+  color: white;
+  background-color: #008216;
+  border-radius: 3px;
 }
 
 button:hover {
+  color: white;
+  background-color: #01961a;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+input[type="submit"] {
+  text-align: center;
+  display: flex;
+  width: 110px;
+  height: 40px;
+  border: 0;
+  margin: 12px auto;
+  color: white;
+  background-color: #008216;
+  border-radius: 3px;
 }
 
 input[type="submit"]:hover {
+  color: white;
+  background-color: #01961a;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+input[type="text"] {
+  justify-content: center;
+  display: flex;
+  width: 220px;
+  height: 40px;
+  border: 0;
+  margin: 8px auto;
+  padding: 0px 20px;
+  color: black;
+  background-color: white;
+  border-radius: 3px;
+}
+
+input[type="text"]:focus {
+  outline: 3px solid #008216;
+}
+
+input[type="password"] {
+  display: flex;
+  justify-content: center;
+  width: 220px;
+  height: 40px;
+  border: 0;
+  margin: 8px auto;
+  padding: 0px 20px;
+  color: black;
+  background-color: white;
+  border-radius: 3px;
+}
+
+input[type="password"]:focus {
+  outline: 3px solid #008216;
 }

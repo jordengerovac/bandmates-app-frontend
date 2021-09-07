@@ -42,7 +42,7 @@ class Register extends React.Component {
     render() {
         return(
             <div className="App">
-                <h2>Bandmates</h2>
+                <h2>Register</h2>
                 <div>
                     <form onSubmit={this.handleSubmit}>
                         <input type="text" placeholder="full name" value={this.state.fullname} onChange={this.handleChange} name="fullname"></input>

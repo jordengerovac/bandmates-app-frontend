@@ -38,8 +38,8 @@ class Login extends React.Component {
     render() {
         return(
             <div className="App">
-                <h2>Bandmates</h2>
-                <div>
+                <h2>Login</h2>
+                <div style={{textAlign: 'center'}}>
                     <form onSubmit={this.handleSubmit}>
                         <input type="text" placeholder="username" value={this.state.username} onChange={this.handleChange} name="username"></input>
                         <input type="password" placeholder="password" value={this.state.password} onChange={this.handleChange} name="password"></input>
