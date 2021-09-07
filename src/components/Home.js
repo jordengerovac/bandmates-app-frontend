@@ -2,6 +2,7 @@ import '../App.css';
 import React from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
+import NavigationBar from './NavigationBar';
 
 class Home extends React.Component {
     render() {
@@ -10,9 +11,12 @@ class Home extends React.Component {
         }
 
         return(
-            <div className="App">
-                <h2>Bandmates</h2>
-                <p>Welcome to the Bandmates app!</p>
+            <div style={{height: '200vh'}}>
+                <NavigationBar />
+                <div className="App">
+                    <h2>Bandmates</h2>
+                    <p>Welcome to the Bandmates app</p>
+                </div>
             </div>
         )
     }

@@ -40,10 +40,10 @@ class Login extends React.Component {
             <div className="App">
                 <h2>Login</h2>
                 <div style={{textAlign: 'center'}}>
-                    <form onSubmit={this.handleSubmit}>
+                    <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
                         <input type="text" placeholder="username" value={this.state.username} onChange={this.handleChange} name="username"></input>
                         <input type="password" placeholder="password" value={this.state.password} onChange={this.handleChange} name="password"></input>
-                        <input type="submit" value="Submit" />
+                        <input type="submit" value="Submit"  className="bandmatesSubmitButton"/>
                     </form>
                 </div>
             </div>

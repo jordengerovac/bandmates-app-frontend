@@ -44,12 +44,12 @@ class Register extends React.Component {
             <div className="App">
                 <h2>Register</h2>
                 <div>
-                    <form onSubmit={this.handleSubmit}>
+                    <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
                         <input type="text" placeholder="full name" value={this.state.fullname} onChange={this.handleChange} name="fullname"></input>
                         <input type="text" placeholder="username" value={this.state.username} onChange={this.handleChange} name="username"></input>
                         <input type="password" placeholder="password" value={this.state.password1} onChange={this.handleChange} name="password1"></input>
                         <input type="password" placeholder="retype password" value={this.state.password2} onChange={this.handleChange} name="password2"></input>
-                        <input type="submit" value="Submit" />
+                        <input type="submit" value="Submit" className="bandmatesSubmitButton" />
                     </form>
                 </div>
             </div>
