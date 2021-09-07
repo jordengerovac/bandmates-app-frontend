@@ -2,7 +2,8 @@ import { FETCH_ACCESS_TOKEN } from '../actions/types';
 
 
 const initialState = {
-    access_token: ''
+    access_token: '',
+    refresh_token: ''
 }
 
 export default function(state = initialState, action) {
@@ -10,7 +11,8 @@ export default function(state = initialState, action) {
         case FETCH_ACCESS_TOKEN:
             return {
                 ...state,
-                access_token: action.payload
+                access_token: action.payload.access_token,
+                refresh_token: action.payload.refresh_token
             }
         default:
             return state;

@@ -1,3 +1,11 @@
+html {
+  background-color: #008216;
+}
+
+h2, p {
+  color: white;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +43,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
 }

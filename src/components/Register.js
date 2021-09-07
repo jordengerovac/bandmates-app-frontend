@@ -3,12 +3,14 @@ import React from 'react';
 import { connect } from  'react-redux';
 import { fetchAccessToken } from '../actions/authActions'
 
-class Login extends React.Component {
+class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            fullname: '',
             username: '',
-            password: '',
+            password1: '',
+            password2: '',
             accessToken: ''
         };
         this.handleChange = this.handleChange.bind(this);
@@ -26,8 +28,10 @@ class Login extends React.Component {
         e.preventDefault();
         this.getTokens(this.state.username, this.state.password)
         this.setState({
+            fullname: '',
             username: '',
-            password: ''
+            password1: '',
+            password2: ''
         })
     }
 
@@ -41,8 +45,10 @@ class Login extends React.Component {
                 <h2>Bandmates</h2>
                 <div>
                     <form onSubmit={this.handleSubmit}>
+                        <input type="text" placeholder="full name" value={this.state.fullname} onChange={this.handleChange} name="fullname"></input>
                         <input type="text" placeholder="username" value={this.state.username} onChange={this.handleChange} name="username"></input>
-                        <input type="password" placeholder="password" value={this.state.password} onChange={this.handleChange} name="password"></input>
+                        <input type="password" placeholder="password" value={this.state.password1} onChange={this.handleChange} name="password1"></input>
+                        <input type="password" placeholder="retype password" value={this.state.password2} onChange={this.handleChange} name="password2"></input>
                         <input type="submit" value="Submit" />
                     </form>
                 </div>
@@ -57,4 +63,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps, { fetchAccessToken })(Login);
+export default connect(mapStateToProps, { fetchAccessToken })(Register);
