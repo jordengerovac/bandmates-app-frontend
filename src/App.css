@@ -130,12 +130,30 @@ input[type="password"]:focus {
   outline: 3px solid #008216;
 }
 
+textarea {
+  justify-content: center;
+  display: block;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 400px;
+  height: 200px;
+  border: 0;
+  padding: 0px 20px;
+  color: black;
+  background-color: white;
+  border-radius: 3px;
+}
+
+textarea:focus {
+  outline: 3px solid #008216;
+}
+
 .logoutModal {
   margin: 25vh auto 0 auto;
-  width: 25vw;
-  height: 25vh;
+  width: 35vw;
+  min-height: 26vh;
   text-align: center;
   background-color: black;
-  padding: 10px;
+  padding: 20px;
   border-radius: 10px;
 }

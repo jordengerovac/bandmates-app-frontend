@@ -22,8 +22,9 @@ class NavigationBar extends React.Component {
                         <Nav.Link href="/home">Home</Nav.Link>
                         <Nav.Link href="/botb">BOTB</Nav.Link>
                         <NavDropdown title="Profile" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="/profile">Edit Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="/connect">Connect Spotify</NavDropdown.Item>
+                            <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/edit-profile">Edit Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/spotify-data">Spotify Data</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
                         </NavDropdown>
