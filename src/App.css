@@ -55,7 +55,7 @@ form.bandmatesSignUp {
   box-shadow: none !important;
 }
 
-h2, p {
+h2, h3, h4, p {
   color: white;
   margin: 5px;
 }
@@ -128,4 +128,14 @@ input[type="password"] {
 
 input[type="password"]:focus {
   outline: 3px solid #008216;
+}
+
+.logoutModal {
+  margin: 25vh auto 0 auto;
+  width: 25vw;
+  height: 25vh;
+  text-align: center;
+  background-color: black;
+  padding: 10px;
+  border-radius: 10px;
 }

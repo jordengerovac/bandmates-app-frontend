@@ -2,6 +2,7 @@ import '../App.css';
 import React from 'react';
 import { connect } from  'react-redux';
 import { fetchAccessToken } from '../actions/authActions'
+import { Redirect } from 'react-router-dom'
 
 class Login extends React.Component {
     constructor(props) {
@@ -36,6 +37,10 @@ class Login extends React.Component {
     }
 
     render() {
+        if (this.props.authDetails.authenticated) {
+            return <Redirect to="/home" />
+        }
+
         return(
             <div className="App">
                 <h2>Login</h2>

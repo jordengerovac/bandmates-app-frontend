@@ -4,6 +4,7 @@ import Login from './components/Login';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Register from './components/Register';
 import Home from './components/Home';
+import Logout from './components/Logout';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/home" component={Home} />
+        <Route path="/logout" component={Logout} />
       </Switch>
     </BrowserRouter>
   );

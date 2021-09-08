@@ -2,6 +2,8 @@ import '../App.css';
 import React from 'react';
 import { connect } from  'react-redux';
 import { fetchAccessToken } from '../actions/authActions'
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class Register extends React.Component {
     constructor(props) {
@@ -12,37 +14,67 @@ class Register extends React.Component {
             email: '',
             username: '',
             password1: '',
-            password2: ''
+            password2: '',
+            registered: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.getTokens = this.getTokens.bind(this);
+        this.registerUser = this.registerUser.bind(this);
       }
 
     handleChange(e) {    
         this.setState({
             [e.target.name]: e.target.value
-        });  
+        });
+        console.log(this.state)
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        this.getTokens(this.state.username, this.state.password)
-        this.setState({
-            firstname: '',
-            lastname: '',
-            email: '',
-            username: '',
-            password1: '',
-            password2: ''
-        })
+        if (this.state.password1 === this.state.password2) {
+            this.registerUser()
+            this.setState({
+                firstname: '',
+                lastname: '',
+                email: '',
+                username: '',
+                password1: '',
+                password2: '',
+                registered: true
+
+            })
+        }
+        else {
+            console.log("passwords not equal")
+        }
     }
 
-    getTokens(username, password) {
-        this.props.fetchAccessToken(username, password)
+    registerUser() {
+        axios.post('/api/v1/users/create', { 
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            email: this.state.email,
+            username: this.state.username,
+            password: this.state.password1,
+            roles: [] 
+        })
+        .then(res => {
+            console.log("registering...")
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
     }
 
     render() {
+        if (this.state.registered) {
+            return (
+                <div className="App">
+                    <p>You have successfully registered! Click <Link to="/login" style={{textDecoration: 'none', color: '#008216'}}>here</Link> to login</p>
+                </div>
+            )
+        }
+
         return(
             <div className="App">
                 <h2>Register</h2>

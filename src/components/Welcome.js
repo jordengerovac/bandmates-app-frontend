@@ -1,10 +1,15 @@
 import '../App.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import logo from '../images/bandmates_logo.png'
+import { connect } from  'react-redux';
 
 class Welcome extends React.Component {
     render() {
+        if (this.props.authDetails.authenticated) {
+            return <Redirect to="/home" />
+        }
+
         return(
             <div className="App">
                 <img src={logo} alt="bandmates-logo" style={{width: '250px', borderRadius: '50%', margin: '20px'}}/>
@@ -17,4 +22,10 @@ class Welcome extends React.Component {
     }
 }
 
-export default Welcome;
+function mapStateToProps(state, ownProps) {
+    return {
+      authDetails: state.authDetails
+    }
+}
+
+export default connect(mapStateToProps)(Welcome);

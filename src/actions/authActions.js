@@ -1,4 +1,4 @@
-import { FETCH_ACCESS_TOKEN } from './types';
+import { FETCH_ACCESS_TOKEN, LOGOUT } from './types';
 import axios from 'axios';
 
 export const fetchAccessToken = (username, password) => dispatch => {
@@ -17,5 +17,11 @@ export const fetchAccessToken = (username, password) => dispatch => {
     })
     .catch(function(error) {
         console.log(error);
+    });
+}
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
     });
 }

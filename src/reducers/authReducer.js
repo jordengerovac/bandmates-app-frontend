@@ -1,4 +1,4 @@
-import { FETCH_ACCESS_TOKEN } from '../actions/types';
+import { FETCH_ACCESS_TOKEN, LOGOUT } from '../actions/types';
 
 
 const initialState = {
@@ -14,7 +14,16 @@ export default function(state = initialState, action) {
                 ...state,
                 access_token: action.payload.access_token,
                 refresh_token: action.payload.refresh_token,
+                username: action.payload.username,
                 authenticated: true
+            }
+        case LOGOUT:
+            return {
+                ...state,
+                access_token: '',
+                refresh_token: '',
+                username: '',
+                authenticated: false
             }
         default:
             return state;
