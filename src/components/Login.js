@@ -3,11 +3,14 @@ import React from 'react';
 import { connect } from  'react-redux';
 import { fetchAccessToken } from '../actions/authActions'
 import { Redirect } from 'react-router-dom'
+import { LOGIN_ATTEMPTED } from '../actions/types';
+import store from '../store';
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            newLoginAttempted: false,
             username: '',
             password: '',
             accessToken: ''
@@ -15,7 +18,15 @@ class Login extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getTokens = this.getTokens.bind(this);
-      }
+    }
+
+    componentDidMount(){
+        const data = {
+            type: LOGIN_ATTEMPTED,
+            payload: false
+        }
+        store.dispatch(data)
+    }
 
     handleChange(e) {    
         this.setState({
@@ -40,19 +51,21 @@ class Login extends React.Component {
         if (this.props.authDetails.authenticated) {
             return <Redirect to="/home" />
         }
-
-        return(
-            <div className="App">
-                <h2>Login</h2>
-                <div style={{textAlign: 'center'}}>
-                    <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
-                        <input type="text" placeholder="username" value={this.state.username} onChange={this.handleChange} name="username"></input>
-                        <input type="password" placeholder="password" value={this.state.password} onChange={this.handleChange} name="password"></input>
-                        <input type="submit" value="Submit"  className="bandmatesSubmitButton"/>
-                    </form>
+        else {
+            return(
+                <div className="App">
+                    <h2>Login</h2>
+                    <div style={{textAlign: 'center'}}>
+                        <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
+                            <input type="text" placeholder="email" value={this.state.username} onChange={this.handleChange} name="username"></input>
+                            <input type="password" placeholder="password" value={this.state.password} onChange={this.handleChange} name="password"></input>
+                            <input type="submit" value="Submit"  className="bandmatesSubmitButton"/>
+                        </form>
+                    </div>
+                    {this.props.authDetails.invalid_login ? <p style={{color: 'red'}}>Invalid username or password</p> : null}
                 </div>
-            </div>
-        )
+            )
+        }
     }
 }
 

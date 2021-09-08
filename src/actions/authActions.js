@@ -1,4 +1,4 @@
-import { FETCH_ACCESS_TOKEN, LOGOUT } from './types';
+import { FETCH_ACCESS_TOKEN, LOGOUT, LOGIN_ATTEMPTED } from './types';
 import axios from 'axios';
 
 export const fetchAccessToken = (username, password) => dispatch => {
@@ -15,9 +15,13 @@ export const fetchAccessToken = (username, password) => dispatch => {
             payload: data
         });
     })
-    .catch(function(error) {
+    .catch(error => {
         console.log(error);
-    });
+        dispatch({
+            type: LOGIN_ATTEMPTED,
+            payload: true
+        });
+    })
 }
 
 export const logout = () => dispatch => {
