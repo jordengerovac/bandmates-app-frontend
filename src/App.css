@@ -27,7 +27,7 @@ form.bandmatesSignUp {
   font-size: 14px !important;
   background-color: #008216 !important;
   border: none !important;
-  margin: 0 20px 0 10px;
+  margin: 3px 20px 0 10px;
 }
 
 .bandmatesSearchButton:hover {
@@ -156,4 +156,28 @@ textarea:focus {
   background-color: black;
   padding: 20px;
   border-radius: 10px;
+}
+
+.userSearchResult {
+  margin: 20px auto;
+  width: 50vw;
+  background-color: #212529;
+  border-radius: 10px;
+  text-align: left;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.userSearchResult > div > p {
+  margin: 5px 20px;
+}
+
+.userSearchResult > div > p:nth-child(1) {
+  font-size: large;
+}
+
+.userSearchResult > div > p:nth-child(2) {
+  font-size: small;
+  color: lightgray;
 }
