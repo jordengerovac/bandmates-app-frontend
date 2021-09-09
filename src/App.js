@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
 import ConnectSpotify from './components/ConnectSpotify';
 import SpotifyData from './components/SpotifyData';
+import Search from './components/Search';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/edit-profile" component={EditProfile} />
         <Route path="/connect-spotify" component={ConnectSpotify} />
         <Route path="/spotify-data" component={SpotifyData} />
+        <Route path="/search" component={Search} />
       </Switch>
     </BrowserRouter>
   );

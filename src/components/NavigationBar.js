@@ -4,8 +4,31 @@ import { connect } from  'react-redux';
 import logo from '../images/bandmates_logo.png'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class NavigationBar extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            query: ''
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
+        });  
+    }
+
+    handleSubmit(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            window.location.replace('/search?' + this.state.query);
+          }
+    } 
+
     render() {
         return(
             <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
@@ -29,14 +52,18 @@ class NavigationBar extends React.Component {
                             <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-                    <Form className="d-flex">
+                    <Form className="d-flex" style={{margin: '0 0 0 20px'}}>
                         <FormControl
                             type="search"
                             placeholder="Search"
                             className="mr-2 bandmatesSearchBar"
                             aria-label="Search"
+                            name="query"
+                            value={this.state.query}
+                            onChange={this.handleChange}
+                            onKeyDown={this.handleSubmit}
                         />
-                        <Button className="bandmatesSearchButton">Search</Button>
+                        <Link to={'/search?' + this.state.query}><Button className="bandmatesSearchButton">Search</Button></Link>
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
