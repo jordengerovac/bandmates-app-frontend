@@ -33,7 +33,7 @@ class Search extends React.Component {
     }
 
     getQueriedUsers(query) {
-        axios.get('/api/v1/users/query/?search=' + '(firstname:\'*' + query + '*\' OR lastname:\'*' + query + '*\' OR username: \'*' + query + '*\')', { headers: {"Authorization" : `Bearer ${this.props.authDetails.access_token}`} })
+        axios.get('/api/v1/users/query/?search=' + '(firstname:\'*' + query + '*\' OR lastname:\'*' + query + '*\' OR username: \'*' + query + '*\')', { headers: {"Authorization" : `Bearer ${this.props.authDetails.bandmates_access_token}`} })
         .then(res => {
             this.setState({
                 queriedUsers: res.data,

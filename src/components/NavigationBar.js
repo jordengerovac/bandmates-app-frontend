@@ -38,7 +38,7 @@ class NavigationBar extends React.Component {
     } 
 
     getUserProfile() {
-        axios.get('/api/v1/users/' + this.props.authDetails.username + '/profiles', { headers: {"Authorization" : `Bearer ${this.props.authDetails.access_token}`} })
+        axios.get('/api/v1/users/' + this.props.authDetails.username + '/profiles', { headers: {"Authorization" : `Bearer ${this.props.authDetails.bandmates_access_token}`} })
         .then(res => {
             this.setState({
                 profile: res.data,

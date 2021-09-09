@@ -5,7 +5,7 @@ import { connect } from  'react-redux';
 import axios from 'axios';
 import NavigationBar from './NavigationBar';
 
-class CreateProfile extends React.Component {
+class EditProfile extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -26,7 +26,7 @@ class CreateProfile extends React.Component {
         e.preventDefault();
 
         const config = {
-            headers: { Authorization: `Bearer ${this.props.authDetails.access_token}` }
+            headers: { Authorization: `Bearer ${this.props.authDetails.bandmates_access_token}` }
         };
         
         const body = {
@@ -78,4 +78,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(mapStateToProps)(EditProfile);

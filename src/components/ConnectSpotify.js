@@ -3,21 +3,49 @@ import React from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
-
-const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize?response_type=code&client_id=95c5f746df16436882efa3d4ebf3b9fa&redirect_uri=http://localhost:3000/home&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state"
+import axios from 'axios';
+import { fetchSpotifyTokens } from '../actions/authActions'
 
 class ConnectSpotify extends React.Component {
+    constructor() {
+        super();
+        this.getSpotifyTokens = this.getSpotifyTokens.bind(this);
+    }
+
+    componentDidMount() {
+        const code = window.location.search.substring(window.location.search.indexOf("=") + 1);
+        this.getSpotifyTokens(code);
+    }
+
+    getSpotifyTokens(code) {
+        const config = {
+            headers: { Authorization: `Bearer ${this.props.authDetails.bandmates_access_token}` }
+        };
+
+        axios.post('/api/v1/spotifydata/tokens?code=' + code, {}, config)
+        .then(res => {
+            this.props.fetchSpotifyTokens(res.data)
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
     render() {
         if (!this.props.authDetails.authenticated) {
             return <Redirect to="/login" />
+        }
+
+        if(this.props.authDetails.spotify_access_token) {
+            return <Redirect to="/spotify-data" />
         }
 
         return(
             <div style={{height: '200vh'}}>
                 <NavigationBar />
                 <div className="App">
-                    <h2 style={{marginBottom: '50px'}}>Connect a Spotify account</h2>
-                    <a href={SPOTIFY_AUTH_URL}><button className="bandmatesButton">Connect</button></a>
+                    <h4 style={{marginBottom: '50px'}}>Connecting your Spotify account...</h4>
                 </div>
             </div>
         )
@@ -30,4 +58,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(ConnectSpotify);
+export default connect(mapStateToProps, { fetchSpotifyTokens })(ConnectSpotify);

@@ -21,7 +21,7 @@ class Profile extends React.Component {
     }
 
     getUserProfile(profileId) {
-        axios.get('/api/v1/profiles/' + profileId, { headers: {"Authorization" : `Bearer ${this.props.authDetails.access_token}`} })
+        axios.get('/api/v1/profiles/' + profileId, { headers: {"Authorization" : `Bearer ${this.props.authDetails.bandmates_access_token}`} })
         .then(res => {
             this.setState({
                 profile: res.data,
