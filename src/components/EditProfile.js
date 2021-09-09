@@ -9,7 +9,8 @@ class CreateProfile extends React.Component {
     constructor() {
         super();
         this.state = {
-            bio: ''
+            bio: '',
+            successfulSubmition: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,8 +36,10 @@ class CreateProfile extends React.Component {
         axios.post('/api/v1/profiles/users/' + this.props.authDetails.username, body, config)
         .then(res => {
             this.setState({
-                bio: ''
+                bio: '',
+                successfulSubmition: true
             })
+
         })
         .catch(error => {
             console.log(error);
@@ -52,13 +55,17 @@ class CreateProfile extends React.Component {
             <div>
                 <NavigationBar />
                 <div className="App">
-                    <h2 style={{marginTop: '30px'}}>Edit Profile</h2>
+                    {this.state.successfulSubmition ? <p>You have successfully edited your profile</p> : 
                     <div>
-                        <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
-                            <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio"></textarea>
-                            <input type="submit" value="Submit" className="bandmatesSubmitButton" />
-                        </form>
+                        <h2 style={{marginTop: '30px'}}>Edit Profile</h2>
+                        <div>
+                            <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
+                                <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio"></textarea>
+                                <input type="submit" value="Submit" className="bandmatesSubmitButton" />
+                            </form>
+                        </div>
                     </div>
+                    }
                 </div>
             </div>
         )

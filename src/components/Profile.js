@@ -16,11 +16,12 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        this.getUserProfile();
+        const profileId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+        this.getUserProfile(profileId);
     }
 
-    getUserProfile() {
-        axios.get('/api/v1/users/' + this.props.authDetails.username + '/profiles', { headers: {"Authorization" : `Bearer ${this.props.authDetails.access_token}`} })
+    getUserProfile(profileId) {
+        axios.get('/api/v1/profiles/' + profileId, { headers: {"Authorization" : `Bearer ${this.props.authDetails.access_token}`} })
         .then(res => {
             this.setState({
                 profile: res.data,

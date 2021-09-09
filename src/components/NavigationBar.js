@@ -5,15 +5,23 @@ import logo from '../images/bandmates_logo.png'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class NavigationBar extends React.Component {
     constructor() {
         super();
         this.state = {
-            query: ''
+            query: '',
+            profile: {},
+            loading: true
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getUserProfile = this.getUserProfile.bind(this);
+    }
+
+    componentDidMount() {
+        this.getUserProfile();
     }
 
     handleChange(e) {
@@ -28,6 +36,19 @@ class NavigationBar extends React.Component {
             window.location.replace('/search?' + this.state.query);
           }
     } 
+
+    getUserProfile() {
+        axios.get('/api/v1/users/' + this.props.authDetails.username + '/profiles', { headers: {"Authorization" : `Bearer ${this.props.authDetails.access_token}`} })
+        .then(res => {
+            this.setState({
+                profile: res.data,
+                loading: false
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
 
     render() {
         return(
@@ -45,7 +66,10 @@ class NavigationBar extends React.Component {
                         <Nav.Link href="/home">Home</Nav.Link>
                         <Nav.Link href="/botb">BOTB</Nav.Link>
                         <NavDropdown title="Profile" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                            {Object.keys(this.state.profile).length === 0 ? 
+                                <NavDropdown.Item href="/edit-profile">Profile</NavDropdown.Item> : 
+                                <NavDropdown.Item href={"/profile/" + this.state.profile.id}>Profile</NavDropdown.Item>
+                            }
                             <NavDropdown.Item href="/edit-profile">Edit Profile</NavDropdown.Item>
                             <NavDropdown.Item href="/spotify-data">Spotify Data</NavDropdown.Item>
                             <NavDropdown.Divider />
