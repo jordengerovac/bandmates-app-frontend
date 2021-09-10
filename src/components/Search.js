@@ -1,9 +1,9 @@
 import '../App.css';
 import React from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
-import axios from 'axios';
+import { getQueriedUsers } from '../api/users';
 
 class Search extends React.Component {
     constructor() {
@@ -32,17 +32,16 @@ class Search extends React.Component {
         }
     }
 
-    getQueriedUsers(query) {
-        axios.get('/api/v1/users/query/?search=' + '(firstname:\'*' + query + '*\' OR lastname:\'*' + query + '*\' OR username: \'*' + query + '*\')', { headers: {"Authorization" : `Bearer ${this.props.authDetails.access_token}`} })
-        .then(res => {
+    async getQueriedUsers(query) {
+        try {
+            const users = await getQueriedUsers(query, this.props.authDetails.bandmates_access_token)
             this.setState({
-                queriedUsers: res.data,
+                queriedUsers: users.data,
                 loading: false
             })
-        })
-        .catch(error => {
+        } catch (error){
             console.log(error)
-        })
+        }
     }
 
     render() {
@@ -63,7 +62,10 @@ class Search extends React.Component {
                                     <p>{user.username}</p>
                                 </div>
                                 <div>
-                                    <button className="bandmatesButton">View Profiile</button>
+                                {(user.profile !== null ?
+                                    <Link to={'/profile/' + user.profile.id}><button className="bandmatesButton">View Profiile</button></Link> 
+                                    : null
+                                )}
                                 </div>
                             </div>
                         )}) : <p>No search results</p> : null}

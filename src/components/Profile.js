@@ -2,8 +2,8 @@ import '../App.css';
 import React from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
-import axios from 'axios';
 import NavigationBar from './NavigationBar';
+import { getProfileById } from '../api/profiles';
 
 class Profile extends React.Component {
     constructor() {
@@ -16,20 +16,20 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
-        this.getUserProfile();
+        const profileId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+        this.getUserProfile(profileId);
     }
 
-    getUserProfile() {
-        axios.get('/api/v1/users/' + this.props.authDetails.username + '/profiles', { headers: {"Authorization" : `Bearer ${this.props.authDetails.access_token}`} })
-        .then(res => {
+    async getUserProfile(profileId) {
+        try {
+            const result = await getProfileById(profileId, this.props.authDetails.bandmates_access_token)
             this.setState({
-                profile: res.data,
+                profile: result.data,
                 loading: false
             })
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        } catch(error) {
+            console.error();
+        }
     }
 
     render() {

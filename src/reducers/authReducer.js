@@ -1,9 +1,11 @@
-import { FETCH_ACCESS_TOKEN, LOGIN_ATTEMPTED, LOGOUT, REGISTRATION_ATTEMPTED } from '../actions/types';
+import { FETCH_ACCESS_TOKEN, LOGIN_ATTEMPTED, LOGOUT, REGISTRATION_ATTEMPTED, FETCH_SPOTIFY_TOKENS } from '../actions/types';
 
 
 const initialState = {
-    access_token: '',
-    refresh_token: '',
+    bandmates_access_token: '',
+    bandmates_refresh_token: '',
+    spotify_access_token: '',
+    spotify_refresh_token: '',
     authenticated: false,
     invalid_login: false,
     invalid_registration: false
@@ -14,8 +16,8 @@ export default function(state = initialState, action) {
         case FETCH_ACCESS_TOKEN:
             return {
                 ...state,
-                access_token: action.payload.access_token,
-                refresh_token: action.payload.refresh_token,
+                bandmates_access_token: action.payload.access_token,
+                bandmates_refresh_token: action.payload.refresh_token,
                 username: action.payload.username,
                 authenticated: true,
                 invalid_login: false
@@ -23,8 +25,8 @@ export default function(state = initialState, action) {
         case LOGOUT:
             return {
                 ...state,
-                access_token: '',
-                refresh_token: '',
+                bandmates_access_token: '',
+                bandmates_refresh_token: '',
                 username: '',
                 authenticated: false
             }
@@ -37,6 +39,12 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 invalid_registration: action.payload
+            }
+        case FETCH_SPOTIFY_TOKENS:
+            return {
+                ...state,
+                spotify_access_token: action.payload.access_token,
+                spotify_refresh_token: action.payload.refresh_token
             }
         default:
             return state;

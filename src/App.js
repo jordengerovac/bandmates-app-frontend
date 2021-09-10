@@ -6,10 +6,11 @@ import Register from './components/Register';
 import Home from './components/Home';
 import Logout from './components/Logout';
 import Profile from './components/Profile';
-import EditProfile from './components/EditProfile';
+import UpdateProfile from './components/UpdateProfile';
 import ConnectSpotify from './components/ConnectSpotify';
 import SpotifyData from './components/SpotifyData';
 import Search from './components/Search';
+import BOTB from './components/BOTB';
 
 function App() {
   return (
@@ -21,10 +22,11 @@ function App() {
         <Route path="/home" component={Home} />
         <Route path="/logout" component={Logout} />
         <Route path="/profile" component={Profile} />
-        <Route path="/edit-profile" component={EditProfile} />
+        <Route path="/update-profile" component={UpdateProfile} />
         <Route path="/connect-spotify" component={ConnectSpotify} />
         <Route path="/spotify-data" component={SpotifyData} />
         <Route path="/search" component={Search} />
+        <Route path="/botb" component={BOTB} />
       </Switch>
     </BrowserRouter>
   );

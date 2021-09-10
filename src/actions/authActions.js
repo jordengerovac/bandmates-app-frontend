@@ -1,4 +1,4 @@
-import { FETCH_ACCESS_TOKEN, LOGOUT, LOGIN_ATTEMPTED } from './types';
+import { FETCH_ACCESS_TOKEN, LOGOUT, LOGIN_ATTEMPTED, FETCH_SPOTIFY_TOKENS } from './types';
 import axios from 'axios';
 
 export const fetchAccessToken = (username, password) => dispatch => {
@@ -27,5 +27,12 @@ export const fetchAccessToken = (username, password) => dispatch => {
 export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT
+    });
+}
+
+export const fetchSpotifyTokens = (payload) => dispatch => {
+    dispatch({
+        type: FETCH_SPOTIFY_TOKENS,
+        payload: payload
     });
 }

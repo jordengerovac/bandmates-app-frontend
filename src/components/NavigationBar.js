@@ -5,15 +5,23 @@ import logo from '../images/bandmates_logo.png'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { getUserProfile } from '../api/users'; 
 
 class NavigationBar extends React.Component {
     constructor() {
         super();
         this.state = {
-            query: ''
+            query: '',
+            profile: {},
+            loading: true
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getUserProfile = this.getUserProfile.bind(this);
+    }
+
+    componentDidMount() {
+        this.getUserProfile();
     }
 
     handleChange(e) {
@@ -29,9 +37,21 @@ class NavigationBar extends React.Component {
           }
     } 
 
+    async getUserProfile() {
+        try {
+            const result = await getUserProfile(this.props.authDetails.username, this.props.authDetails.bandmates_access_token);
+            this.setState({
+                profile: result.data,
+                loading: false
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     render() {
         return(
-            <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+            <Navbar className="bandmatesNavbar" expand="lg" fixed="top">
                 <Navbar.Brand href="/home">
                     <img src={logo} alt="navbar-logo" style={{width: '40px', borderRadius: '50%', marginLeft: '20px'}} />
                 </Navbar.Brand>
@@ -39,17 +59,22 @@ class NavigationBar extends React.Component {
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="ms-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
+                        style={{ maxHeight: '100px'}}
                         navbarScroll
                     >
-                        <Nav.Link href="/home">Home</Nav.Link>
-                        <Nav.Link href="/botb">BOTB</Nav.Link>
+                        <Nav.Link href="/home" className="bandmatesNavbarLink">Home</Nav.Link>
+                        <Nav.Link href="/botb" className="bandmatesNavbarLink">BOTB</Nav.Link>
                         <NavDropdown title="Profile" id="navbarScrollingDropdown">
-                            <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="/edit-profile">Edit Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="/spotify-data">Spotify Data</NavDropdown.Item>
+                            {Object.keys(this.state.profile).length === 0 ? 
+                                <NavDropdown.Item href="/update-profile" className="bandmatesNavbarLink">Profile</NavDropdown.Item> : 
+                                <NavDropdown.Item href={"/profile/" + this.state.profile.id} className="bandmatesNavbarLink">Profile</NavDropdown.Item>
+                            }
+                                <NavDropdown.Item href="/update-profile" className="bandmatesNavbarLink">Update Profile</NavDropdown.Item>
+                            {Object.keys(this.state.profile).length !== 0 ? 
+                                <NavDropdown.Item href="/spotify-data" className="bandmatesNavbarLink">Spotify Data</NavDropdown.Item> : null
+                            }
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+                            <NavDropdown.Item href="/logout" className="bandmatesNavbarLink">Logout</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Form className="d-flex" style={{margin: '0 0 0 20px'}}>

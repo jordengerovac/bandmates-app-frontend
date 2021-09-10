@@ -2,10 +2,10 @@ import '../App.css';
 import React from 'react';
 import { connect } from  'react-redux';
 import { fetchAccessToken } from '../actions/authActions'
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { REGISTRATION_ATTEMPTED } from '../actions/types';
 import store from '../store';
+import { registerUser } from '../api/users';
 
 class Register extends React.Component {
     constructor(props) {
@@ -100,38 +100,22 @@ class Register extends React.Component {
         const formIsValid = this.handleFormValidation();
         if (formIsValid) {
             this.registerUser();
-            this.setState({
-                firstname: '',
-                lastname: '',
-                username: '',
-                password1: '',
-                password2: '',
-
-            });
         }
     }
 
-    registerUser() {
-        axios.post('/api/v1/users/create', { 
-            firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            username: this.state.username,
-            password: this.state.password1,
-            roles: [] 
-        })
-        .then(res => {
+    async registerUser() {
+        try {
+            await registerUser(this.state.firstname, this.state.lastname, this.state.username, this.state.password1)
             this.setState({
                 registered: true
             })
-        })
-        .catch(function(error) {
-            console.log(error);
-            const data = {
-                type: REGISTRATION_ATTEMPTED,
-                payload: true
-            }
-            store.dispatch(data)
-        });
+        } catch (error) {
+            let errors = {}
+            errors["register"] = "An error occurred during registration"
+            this.setState({
+                errors: errors
+            })
+        }
     }
 
     render() {
@@ -164,7 +148,7 @@ class Register extends React.Component {
                         <input type="submit" value="Submit" className="bandmatesSubmitButton" />
                     </form>
                 </div>
-                {this.props.authDetails.invalid_registration ? <p style={{color: 'red'}}>That email is already taken</p> : null}
+                {this.props.authDetails.invalid_registration ? <p style={{color: 'red'}}>An error occurred during registration (email may already be taken)</p> : null}
             </div>
         )
     }

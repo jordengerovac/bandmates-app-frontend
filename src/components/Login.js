@@ -37,10 +37,6 @@ class Login extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         this.getTokens(this.state.username, this.state.password)
-        this.setState({
-            username: '',
-            password: ''
-        })
     }
 
     getTokens(username, password) {
