@@ -51,7 +51,7 @@ class NavigationBar extends React.Component {
 
     render() {
         return(
-            <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+            <Navbar className="bandmatesNavbar" expand="lg" fixed="top">
                 <Navbar.Brand href="/home">
                     <img src={logo} alt="navbar-logo" style={{width: '40px', borderRadius: '50%', marginLeft: '20px'}} />
                 </Navbar.Brand>
@@ -59,22 +59,22 @@ class NavigationBar extends React.Component {
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="ms-auto my-2 my-lg-0"
-                        style={{ maxHeight: '100px' }}
+                        style={{ maxHeight: '100px'}}
                         navbarScroll
                     >
-                        <Nav.Link href="/home">Home</Nav.Link>
-                        <Nav.Link href="/botb">BOTB</Nav.Link>
+                        <Nav.Link href="/home" className="bandmatesNavbarLink">Home</Nav.Link>
+                        <Nav.Link href="/botb" className="bandmatesNavbarLink">BOTB</Nav.Link>
                         <NavDropdown title="Profile" id="navbarScrollingDropdown">
                             {Object.keys(this.state.profile).length === 0 ? 
-                                <NavDropdown.Item href="/update-profile">Profile</NavDropdown.Item> : 
-                                <NavDropdown.Item href={"/profile/" + this.state.profile.id}>Profile</NavDropdown.Item>
+                                <NavDropdown.Item href="/update-profile" className="bandmatesNavbarLink">Profile</NavDropdown.Item> : 
+                                <NavDropdown.Item href={"/profile/" + this.state.profile.id} className="bandmatesNavbarLink">Profile</NavDropdown.Item>
                             }
-                                <NavDropdown.Item href="/update-profile">Update Profile</NavDropdown.Item>
+                                <NavDropdown.Item href="/update-profile" className="bandmatesNavbarLink">Update Profile</NavDropdown.Item>
                             {Object.keys(this.state.profile).length !== 0 ? 
-                                <NavDropdown.Item href="/spotify-data">Spotify Data</NavDropdown.Item> : null
+                                <NavDropdown.Item href="/spotify-data" className="bandmatesNavbarLink">Spotify Data</NavDropdown.Item> : null
                             }
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
+                            <NavDropdown.Item href="/logout" className="bandmatesNavbarLink">Logout</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Form className="d-flex" style={{margin: '0 0 0 20px'}}>

@@ -1,6 +1,6 @@
 import '../App.css';
 import React from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { getQueriedUsers } from '../api/users';
@@ -62,7 +62,10 @@ class Search extends React.Component {
                                     <p>{user.username}</p>
                                 </div>
                                 <div>
-                                    <button className="bandmatesButton">View Profiile</button>
+                                {(user.profile !== null ?
+                                    <Link to={'/profile/' + user.profile.id}><button className="bandmatesButton">View Profiile</button></Link> 
+                                    : null
+                                )}
                                 </div>
                             </div>
                         )}) : <p>No search results</p> : null}

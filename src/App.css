@@ -13,7 +13,31 @@ html, body {
 }
 
 .bandmatesNavbar {
-  margin: 200px !important;
+  background-color: #1b1d20 !important;
+}
+
+.bandmatesNavbarLink {
+  color: white !important;
+}
+
+#navbarScrollingDropdown {
+  color: white !important;
+}
+
+.dropdown-menu {
+  background-color: #1b1d20 !important;
+  border: 1px solid #272a2e !important;
+  color: gray !important;
+}
+
+.dropdown-item {
+  margin: 0px 5px !important;
+  width: auto !important;
+  border-radius: 5px !important;
+}
+
+.dropdown-item:hover {
+  background-color: #333639 !important;
 }
 
 form.bandmatesSignUp {
@@ -180,4 +204,11 @@ textarea:focus {
 .userSearchResult > div > p:nth-child(2) {
   font-size: small;
   color: lightgray;
+}
+
+@media only screen and (max-width: 700px) {
+  .userSearchResult {
+    display: block;
+    text-align: center;
+  }
 }

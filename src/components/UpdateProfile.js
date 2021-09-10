@@ -169,11 +169,14 @@ class UpdateProfile extends React.Component {
 
         return(
             <div>
-                <NavigationBar />
+                <NavigationBar key={this.state.successfulProfileSubmission}/>
                 <div className="App">
                     {this.state.successfulProfileSubmission && this.state.successfulUserSubmission ? <p>You have successfully edited your profile</p> : 
                     <div>
-                        <h2 style={{marginTop: '30px'}}>Update Profile</h2>
+                        {this.state.profile === null && !this.state.loading ? 
+                            <h2 style={{marginTop: '30px'}}>Create Profile</h2> :
+                            <h2 style={{marginTop: '30px'}}>Update Profile</h2>
+                        }
                         <div>
                             <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
                                 {this.state.invalidFields["firstname"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["firstname"]}</p> : null}
