@@ -2,8 +2,9 @@ import '../App.css';
 import React from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
-import axios from 'axios';
 import NavigationBar from './NavigationBar';
+import { getUser, updateUser } from '../api/users'; 
+import { createProfileForUser, updateProfile } from '../api/profiles';
 
 class UpdateProfile extends React.Component {
     constructor() {
@@ -11,7 +12,6 @@ class UpdateProfile extends React.Component {
         this.state = {
             profile: null,
             userId: '',
-            profileId: '',
             firstname: '',
             lastname: '',
             username: '',
@@ -98,86 +98,68 @@ class UpdateProfile extends React.Component {
         }
     }
 
-    getUser() {
-        axios.get('/api/v1/users/' + this.props.authDetails.username, { headers: {"Authorization" : `Bearer ${this.props.authDetails.bandmates_access_token}`} })
-        .then(res => {
+    async getUser() {
+        try {
+            const result = await getUser(this.props.authDetails.username, this.props.authDetails.bandmates_access_token);
             this.setState({
-                profile: res.data.profile,
-                firstname: res.data.firstname,
-                lastname: res.data.lastname,
-                username: res.data.username,
-                userId: res.data.id,
+                profile: result.data.profile,
+                firstname: result.data.firstname,
+                lastname: result.data.lastname,
+                username: result.data.username,
+                userId: result.data.id,
                 loading: false
             })
-        })
-        .catch(error => {
+        } catch(error) {
             console.log(error)
-        })
+        }
     }
 
-    createProfile() {
-        const config = {
-            headers: { Authorization: `Bearer ${this.props.authDetails.bandmates_access_token}` }
-        };
-        
-        const body = {
-        bio: this.state.bio
-        };
-
-        axios.post('/api/v1/profiles/users/' + this.props.authDetails.username, body, config)
-        .then(res => {
-            this.setState({
-                successfulProfileSubmission: true
-            })
-
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    }
-
-    updateProfile() {
-        const config = {
-            headers: { Authorization: `Bearer ${this.props.authDetails.bandmates_access_token}` }
-        };
-        
-        const body = {
+    async createProfile() {
+        const profile = {
             bio: this.state.bio
         };
 
-        axios.put('/api/v1/profiles/update/' + this.state.profile.id, body, config)
-        .then(res => {
+        try {
+            await createProfileForUser(this.props.authDetails.username, profile, this.props.authDetails.bandmates_access_token)
             this.setState({
                 successfulProfileSubmission: true
             })
-
-        })
-        .catch(error => {
-            console.log(error);
-        })
+            console.log("success")
+        } catch(error) {
+            console.log(error)
+        }
     }
 
-    updateUser() {
-        const config = {
-            headers: { Authorization: `Bearer ${this.props.authDetails.bandmates_access_token}` }
+    async updateProfile() {
+        const profile = {
+            bio: this.state.bio
         };
-        
-        const body = {
+
+        try {
+            await updateProfile(this.state.profile.id, profile, this.props.authDetails.bandmates_access_token)
+            this.setState({
+                successfulProfileSubmission: true
+            })
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    async updateUser() {
+        const user = {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
             username: this.state.username,
         };
 
-        axios.put('/api/v1/users/update/' + this.state.userId, body, config)
-        .then(res => {
+        try {
+            await updateUser(this.state.userId, user, this.props.authDetails.bandmates_access_token)
             this.setState({
                 successfulUserSubmission: true
             })
-
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     render() {

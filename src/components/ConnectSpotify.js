@@ -3,8 +3,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
-import axios from 'axios';
-import { fetchSpotifyTokens } from '../actions/authActions'
+import { initializeSpotify } from '../api/spotifydata';
 
 class ConnectSpotify extends React.Component {
     constructor() {
@@ -21,21 +20,16 @@ class ConnectSpotify extends React.Component {
         this.initializeSpotify(code);
     }
 
-    initializeSpotify(code) {
-        const config = {
-            headers: { Authorization: `Bearer ${this.props.authDetails.bandmates_access_token}` }
-        };
-
-        axios.post('/api/v1/spotifydata/initialize/' + this.props.authDetails.username + '?code=' + code, {}, config)
-        .then(res => {
+    async initializeSpotify(code) {
+        try {
+            const result = await initializeSpotify(this.props.authDetails.username, code, this.props.authDetails.bandmates_access_token)
             this.setState({
-                spotifyData: res.data,
+                spotifyData: result.data,
                 loading: false
             })
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     render() {

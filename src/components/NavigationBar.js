@@ -5,7 +5,7 @@ import logo from '../images/bandmates_logo.png'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { getUserProfile } from '../api/users'; 
 
 class NavigationBar extends React.Component {
     constructor() {
@@ -37,17 +37,16 @@ class NavigationBar extends React.Component {
           }
     } 
 
-    getUserProfile() {
-        axios.get('/api/v1/users/' + this.props.authDetails.username + '/profiles', { headers: {"Authorization" : `Bearer ${this.props.authDetails.bandmates_access_token}`} })
-        .then(res => {
+    async getUserProfile() {
+        try {
+            const result = await getUserProfile(this.props.authDetails.username, this.props.authDetails.bandmates_access_token);
             this.setState({
-                profile: res.data,
+                profile: result.data,
                 loading: false
             })
-        })
-        .catch(error => {
+        } catch (error) {
             console.log(error)
-        })
+        }
     }
 
     render() {
