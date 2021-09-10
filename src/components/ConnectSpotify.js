@@ -9,23 +9,29 @@ import { fetchSpotifyTokens } from '../actions/authActions'
 class ConnectSpotify extends React.Component {
     constructor() {
         super();
-        this.getSpotifyTokens = this.getSpotifyTokens.bind(this);
+        this.state = {
+            spotifyData: {},
+            loading: true
+        }
+        this.initializeSpotify = this.initializeSpotify.bind(this);
     }
 
     componentDidMount() {
-        //const code = window.location.search.substring(window.location.search.indexOf("=") + 1);
-        //this.getSpotifyTokens(code);
+        const code = window.location.search.substring(window.location.search.indexOf("=") + 1);
+        this.initializeSpotify(code);
     }
 
-    getSpotifyTokens(code) {
+    initializeSpotify(code) {
         const config = {
             headers: { Authorization: `Bearer ${this.props.authDetails.bandmates_access_token}` }
         };
 
-        axios.post('/api/v1/spotifydata/tokens?code=' + code, {}, config)
+        axios.post('/api/v1/spotifydata/initialize/' + this.props.authDetails.username + '?code=' + code, {}, config)
         .then(res => {
-            this.props.fetchSpotifyTokens(res.data)
-
+            this.setState({
+                spotifyData: res.data,
+                loading: false
+            })
         })
         .catch(error => {
             console.log(error);
@@ -37,7 +43,7 @@ class ConnectSpotify extends React.Component {
             return <Redirect to="/login" />
         }
 
-        if(this.props.authDetails.spotify_access_token) {
+        if(!this.state.loading && Object.keys(this.state.spotifyData).length !== 0) {
             return <Redirect to="/spotify-data" />
         }
 
@@ -58,4 +64,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps, { fetchSpotifyTokens })(ConnectSpotify);
+export default connect(mapStateToProps)(ConnectSpotify);
