@@ -67,11 +67,13 @@ class NavigationBar extends React.Component {
                         <Nav.Link href="/botb">BOTB</Nav.Link>
                         <NavDropdown title="Profile" id="navbarScrollingDropdown">
                             {Object.keys(this.state.profile).length === 0 ? 
-                                <NavDropdown.Item href="/edit-profile">Profile</NavDropdown.Item> : 
+                                <NavDropdown.Item href="/update-profile">Profile</NavDropdown.Item> : 
                                 <NavDropdown.Item href={"/profile/" + this.state.profile.id}>Profile</NavDropdown.Item>
                             }
-                            <NavDropdown.Item href="/edit-profile">Edit Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="/spotify-data">Spotify Data</NavDropdown.Item>
+                                <NavDropdown.Item href="/update-profile">Update Profile</NavDropdown.Item>
+                            {Object.keys(this.state.profile).length !== 0 ? 
+                                <NavDropdown.Item href="/spotify-data">Spotify Data</NavDropdown.Item> : null
+                            }
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/logout">Logout</NavDropdown.Item>
                         </NavDropdown>

@@ -5,7 +5,7 @@ import { connect } from  'react-redux';
 import axios from 'axios';
 import NavigationBar from './NavigationBar';
 
-class EditProfile extends React.Component {
+class UpdateProfile extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -57,7 +57,7 @@ class EditProfile extends React.Component {
                 <div className="App">
                     {this.state.successfulSubmition ? <p>You have successfully edited your profile</p> : 
                     <div>
-                        <h2 style={{marginTop: '30px'}}>Edit Profile</h2>
+                        <h2 style={{marginTop: '30px'}}>Update Profile</h2>
                         <div>
                             <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
                                 <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio"></textarea>
@@ -78,4 +78,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(EditProfile);
+export default connect(mapStateToProps)(UpdateProfile);

@@ -13,8 +13,8 @@ class ConnectSpotify extends React.Component {
     }
 
     componentDidMount() {
-        const code = window.location.search.substring(window.location.search.indexOf("=") + 1);
-        this.getSpotifyTokens(code);
+        //const code = window.location.search.substring(window.location.search.indexOf("=") + 1);
+        //this.getSpotifyTokens(code);
     }
 
     getSpotifyTokens(code) {
