@@ -25,23 +25,24 @@ class SpotifyData extends React.Component {
         try {
             const result = await fetchSpotifyData(this.props.authDetails.username, this.props.authDetails.bandmates_access_token);
             this.setState({
-                spotifyData: result.data,
-                loading: false
+                spotifyData: result.data
             })
         } catch(error) {
             console.log(error)
         }
+        this.setState({
+            loading: false
+        })
     }
 
     render() {
         if (!this.props.authDetails.authenticated) {
             return <Redirect to="/login" />
         }
-        console.log(this.state)
         return(
             <div>
                 <NavigationBar />
-                {!this.state.loading ?
+                {!this.state.loading ? 
                     this.state.spotifyData === "" ? 
                     <div className="App">
                         <h2 style={{marginBottom: '50px'}}>Connect a Spotify account</h2>
