@@ -1,5 +1,6 @@
-import { FETCH_ACCESS_TOKEN, LOGOUT, LOGIN_ATTEMPTED, FETCH_SPOTIFY_TOKENS } from './types';
+import { FETCH_ACCESS_TOKEN, LOGOUT, LOGIN_ATTEMPTED, FETCH_SPOTIFY_TOKENS, REFRESH_ACCESS_TOKEN } from './types';
 import axios from 'axios';
+import { axiosInstance } from '../api/axios'
 
 export const fetchAccessToken = (username, password) => dispatch => {
     var data = ''
@@ -21,6 +22,25 @@ export const fetchAccessToken = (username, password) => dispatch => {
             type: LOGIN_ATTEMPTED,
             payload: true
         });
+    })
+}
+
+export const refreshAccessToken = (refresh_token) => dispatch => {
+    fetch('/api/v1/token/refresh', {
+        method: 'get', 
+        headers: new Headers({
+            'Authorization': 'Bearer ' + refresh_token
+        }), 
+    })
+    .then(response => response.json())
+    .then(payload => {
+        dispatch({
+            type: REFRESH_ACCESS_TOKEN,
+            payload: payload
+        });
+    })
+    .catch(error => {
+        console.log(error)
     })
 }
 

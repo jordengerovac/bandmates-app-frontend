@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../store';
+import { axiosInstance } from '../api/axios'
 
 export const getProfileById = async(id, token) => {
     try {

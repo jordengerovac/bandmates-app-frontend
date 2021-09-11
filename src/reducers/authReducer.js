@@ -1,4 +1,4 @@
-import { FETCH_ACCESS_TOKEN, LOGIN_ATTEMPTED, LOGOUT, REGISTRATION_ATTEMPTED, FETCH_SPOTIFY_TOKENS } from '../actions/types';
+import { FETCH_ACCESS_TOKEN, LOGIN_ATTEMPTED, LOGOUT, REGISTRATION_ATTEMPTED, FETCH_SPOTIFY_TOKENS, REFRESH_ACCESS_TOKEN } from '../actions/types';
 
 
 const initialState = {
@@ -21,6 +21,12 @@ export default function(state = initialState, action) {
                 username: action.payload.username,
                 authenticated: true,
                 invalid_login: false
+            }
+        case REFRESH_ACCESS_TOKEN:
+            return {
+                ...state,
+                bandmates_access_token: action.payload.access_token,
+                bandmates_refresh_token: action.payload.refresh_token
             }
         case LOGOUT:
             return {

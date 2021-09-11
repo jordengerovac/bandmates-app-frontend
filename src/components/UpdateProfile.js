@@ -124,7 +124,6 @@ class UpdateProfile extends React.Component {
             this.setState({
                 successfulProfileSubmission: true
             })
-            console.log("success")
         } catch(error) {
             console.log(error)
         }
