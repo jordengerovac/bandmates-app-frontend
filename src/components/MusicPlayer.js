@@ -12,7 +12,8 @@ export default function MusicPlayer(props) {
             play={props.trackUri ? true : false} 
             token={props.token} 
             showSaveIcon 
-            uris={props.trackUri ? [props.trackUri] : []} 
+            uris={props.trackUri ? [props.trackUri] : []}
+            name="Bandmates App"
             styles={{
                 activeColor: '#008216',
                 bgColor: '#1b1d20',
