@@ -12,23 +12,54 @@ html, body {
   padding-top: 100px;
 }
 
+.dropdown-item {
+  padding: 0 !important;
+}
+
+.nav-link {
+  padding: 0 !important;
+}
+
 .bandmatesNavbar {
   background-color: #1b1d20 !important;
 }
 
 .bandmatesNavbarLink {
+  padding: 0.25rem 1rem !important;
+  display: block !important;
+  width: 100% !important;
+  text-decoration: none !important;
   color: white !important;
+}
+
+.bandmatesNavbarLinkActive {
+  padding: 0.25rem 1rem !important;
+  display: block !important;
+  width: 100% !important;
+  text-decoration: none !important;
+  color: #01961a !important;
 }
 
 .bandmatesNavbarLink:hover {
   color: #01961a !important;
+  transition: 0.2s;
 }
 
 #navbarScrollingDropdown {
+  padding: 0.25rem 1rem !important;
   color: white !important;
 }
 
+#navbarScrollingDropdownActive {
+  padding: 0.25rem 1rem !important;
+  color: #01961a !important;
+}
+
 #navbarScrollingDropdown:hover {
+  color: #01961a !important;
+}
+
+#navbarScrollingDropdown:focus {
   color: #01961a !important;
 }
 
