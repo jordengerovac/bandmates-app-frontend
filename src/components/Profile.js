@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { getProfileById } from '../api/profiles';
+import logo from '../images/bandmates_logo.png'
 
 class Profile extends React.Component {
     constructor() {
@@ -46,10 +47,16 @@ class Profile extends React.Component {
                 <NavigationBar />
                 <div className="App">
                     <h2 style={{marginTop: '30px'}}>Profile</h2>
-                    {this.state.profile && !this.state.loading ? <p>{this.state.profile.bio}</p> : null}
-                    {this.state.profile && !this.state.loading ? <p>{this.state.profile.user.username}</p> : null}
-                    {this.state.profile && !this.state.loading ? <p>{this.state.profile.user.firstname}</p> : null}
-                    {this.state.profile && !this.state.loading ? <p>{this.state.profile.user.lastname}</p> : null}
+                    {!this.state.loading ? 
+                        Object.keys(this.state.profile).length >= 0 ? 
+                        <div>
+                            {this.state.profile.image !== null ? <img className="profilePicture" alt="profile" src={`data:image/jpeg;base64,${this.state.profile.image}`} /> : <img className="profilePicture" alt="profile" src={logo} /> }
+                            <p>{this.state.profile.user.firstname} {this.state.profile.user.lastname}</p>
+                            <p>{this.state.profile.user.username}</p>
+                            <p>{this.state.profile.bio}</p>
+                        </div> : null
+                        : null
+                    }
                 </div>
             </div>
         )

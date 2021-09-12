@@ -36,3 +36,21 @@ export const updateProfile = async(id, profile, token) => {
         return Promise.reject(new Error(error));
     }
 }
+
+export const uploadImageToProfile = async(id, image, token) => {
+    var formData = new FormData();
+    formData.append("image", image, "test.png")
+    const config = {
+        headers: { 
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        }
+    };
+
+    try {
+        const response = axios.post('/api/v1/profiles/image/' + id, formData, config)
+        return response
+    } catch(error) {
+        return Promise.reject(new Error(error));
+    }
+}

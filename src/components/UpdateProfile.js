@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { getUser, updateUser } from '../api/users'; 
-import { createProfileForUser, updateProfile } from '../api/profiles';
+import { createProfileForUser, updateProfile, uploadImageToProfile } from '../api/profiles';
 
 class UpdateProfile extends React.Component {
     constructor() {
@@ -16,6 +16,8 @@ class UpdateProfile extends React.Component {
             lastname: '',
             username: '',
             bio: '',
+            image_preview: null,
+            image_file: null,
             successfulProfileSubmission: false,
             successfulUserSubmission: false,
             invalidFields: {},
@@ -28,6 +30,7 @@ class UpdateProfile extends React.Component {
         this.getUser = this.getUser.bind(this);
         this.updateProfile = this.updateProfile.bind(this);
         this.createProfile = this.createProfile.bind(this);
+        this.handleImagePreview = this.handleImagePreview.bind(this);
     }
 
     componentDidMount() {
@@ -89,11 +92,23 @@ class UpdateProfile extends React.Component {
         if (formIsValid) {
             if (!this.state.loading && this.state.profile === null) {
                 this.createProfile();
+                this.uploadImageToProfile();
                 this.updateUser();
             }
             else {
                 this.updateProfile();
+                this.uploadImageToProfile();
                 this.updateUser();
+            }
+        }
+    }
+
+    async uploadImageToProfile() {
+        if (this.state.image_file !== null) {
+            try {
+                await uploadImageToProfile(this.state.profile.id, this.state.image_file, this.props.authDetails.bandmates_access_token)
+            } catch(error) {
+                console.log(error)
             }
         }
     }
@@ -161,6 +176,16 @@ class UpdateProfile extends React.Component {
         }
     }
 
+    handleImagePreview(e) {
+        let image_as_base64 = URL.createObjectURL(e.target.files[0])
+        let image_as_files = e.target.files[0];
+
+        this.setState({
+            image_preview: image_as_base64,
+            image_file: image_as_files,
+        })
+    }
+
     render() {
         if (!this.props.authDetails.authenticated) {
             return <Redirect to="/" />
@@ -189,8 +214,15 @@ class UpdateProfile extends React.Component {
                                 <hr style={{color: 'white', margin: '30px 30vw'}}/>
 
                                 {this.state.profile !== null ? 
-                                    <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio" defaultValue={this.state.profile.bio}></textarea> :
-                                    <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio"></textarea>
+                                    <div>
+                                        <input type="file" name="image" onChange={this.handleImagePreview}></input>
+                                        <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio" defaultValue={this.state.profile.bio}></textarea>
+                                    </div> :
+                                    <div>
+                                        <label for="image">Upload a profile picture:</label>
+                                        <input type="file" name="image" onChange={this.handleImagePreview}></input>
+                                        <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio"></textarea>
+                                    </div>
                                 }
                                 <input type="submit" value="Submit" className="bandmatesSubmitButton" />
                             </form>

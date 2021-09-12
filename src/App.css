@@ -193,6 +193,16 @@ input[type="password"]:focus {
   outline: 3px solid #008216;
 }
 
+input[type="file"] {
+  margin: 15px auto 30px auto;
+  color: white;
+}
+
+label {
+  color: white;
+  margin: 0 15px;
+}
+
 textarea {
   justify-content: center;
   display: block;
@@ -247,6 +257,10 @@ textarea:focus {
 
 .active {
   color: #01961a !important;
+}
+
+.profilePicture {
+  width: 200px;
 }
 
 @media only screen and (max-width: 700px) {
