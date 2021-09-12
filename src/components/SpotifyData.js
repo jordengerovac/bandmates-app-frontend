@@ -61,12 +61,15 @@ class SpotifyData extends React.Component {
                          <h2>Your Spotify Data</h2>
                          {this.state.spotifyData.recentTracks.map((track, i) => {
                              return(
-                                 <div>
-                                    <p onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
+                                <div style={{display: 'flex', justifyContent: 'center', margin: '20px auto'}}>
+                                    <img alt="album-art" onClick={() => this.setPlayingTrack(track.uri)} src={track.artwork} style={{width: '50px', cursor: 'pointer'}}/>
+                                    <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
                                 </div>
                              )
                          })}
-                         <MusicPlayer token={this.state.spotifyData.spotifyAccessToken} trackUri={this.state.trackUri} />
+                         <div style={{position: 'fixed', bottom: '0', width: '100%'}}>
+                            <MusicPlayer token={this.state.spotifyData.spotifyAccessToken} trackUri={this.state.trackUri} />
+                         </div>
                     </div> : null
                 }
             </div>
