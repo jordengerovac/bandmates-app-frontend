@@ -61,9 +61,10 @@ class NavigationBar extends React.Component {
                         className="ms-auto my-2 my-lg-0"
                         style={{ maxHeight: '100px'}}
                         navbarScroll
+                        defaultActiveKey={window.location.pathname}
                     >
-                        <Nav.Link href="/home" className="bandmatesNavbarLink">Home</Nav.Link>
-                        <Nav.Link href="/botb" className="bandmatesNavbarLink">BOTB</Nav.Link>
+                        <Nav.Link href="/home" className="bandmatesNavbarLink" activeClassName="active">Home</Nav.Link>
+                        <Nav.Link href="/botb" className="bandmatesNavbarLink" activeClassName="active">BOTB</Nav.Link>
                         <NavDropdown title="Profile" id="navbarScrollingDropdown">
                             {Object.keys(this.state.profile).length === 0 ? 
                                 <NavDropdown.Item href="/update-profile" className="bandmatesNavbarLink">Profile</NavDropdown.Item> : 
