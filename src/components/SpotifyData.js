@@ -57,7 +57,8 @@ class SpotifyData extends React.Component {
                         <h2 style={{marginBottom: '50px'}}>Connect a Spotify account</h2>
                         <a href={SPOTIFY_AUTH_URL}><button className="bandmatesButton">Connect</button></a>
                     </div> : 
-                     <div className="App">
+                    <div>
+                     <div className="App" style={{marginBottom: '90px'}}>
                          <h2>Your Spotify Data</h2>
                          {this.state.spotifyData.recentTracks.map((track, i) => {
                              return(
@@ -67,6 +68,7 @@ class SpotifyData extends React.Component {
                                 </div>
                              )
                          })}
+                         </div>
                          <div style={{position: 'fixed', bottom: '0', width: '100%'}}>
                             <MusicPlayer token={this.state.spotifyData.spotifyAccessToken} trackUri={this.state.trackUri} />
                          </div>
