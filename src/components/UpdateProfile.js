@@ -18,6 +18,7 @@ class UpdateProfile extends React.Component {
             bio: '',
             image_preview: null,
             image_file: null,
+            successfulImageUpload: false,
             successfulProfileSubmission: false,
             successfulUserSubmission: false,
             invalidFields: {},
@@ -107,6 +108,9 @@ class UpdateProfile extends React.Component {
         if (this.state.image_file !== null) {
             try {
                 await uploadImageToProfile(this.state.profile.id, this.state.image_file, this.props.authDetails.bandmates_access_token)
+                this.setState({
+                    successfulImageUpload: true
+                })
             } catch(error) {
                 console.log(error)
             }
@@ -124,6 +128,11 @@ class UpdateProfile extends React.Component {
                 userId: result.data.id,
                 loading: false
             })
+            if (result.profile !== null) {
+                this.setState({
+                    bio: result.data.profile.bio
+                })
+            }
         } catch(error) {
             console.log(error)
         }
@@ -195,7 +204,7 @@ class UpdateProfile extends React.Component {
             <div>
                 <NavigationBar key={this.state.successfulProfileSubmission}/>
                 <div className="App">
-                    {this.state.successfulProfileSubmission && this.state.successfulUserSubmission ? <p>You have successfully edited your profile</p> : 
+                    {this.state.successfulProfileSubmission && this.state.successfulUserSubmission  && (this.state.successfulImageUpload || this.state.image_file === null) ? <p>You have successfully edited your profile</p> : 
                     <div>
                         {this.state.profile === null && !this.state.loading ? 
                             <h2 style={{marginTop: '30px'}}>Create Profile</h2> :
@@ -215,6 +224,7 @@ class UpdateProfile extends React.Component {
 
                                 {this.state.profile !== null ? 
                                     <div>
+                                        <label for="image">Upload a profile picture:</label>
                                         <input type="file" name="image" onChange={this.handleImagePreview}></input>
                                         <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio" defaultValue={this.state.profile.bio}></textarea>
                                     </div> :
