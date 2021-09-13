@@ -63,10 +63,10 @@ class Profile extends React.Component {
                                 <h6 style={{color: '#898989'}}>{this.state.profile.user.username}</h6>
                                 <p style={{margin: '22px auto 0px auto', width: '32vw'}}>{this.state.profile.bio}</p>
                             </div>
-                            <div className="profileCard">
+                            <div className="recentlyPlayedCard">
                                 {this.state.profile.spotifyData !== null ? 
                                     <div>
-                                        <h2 style={{margin: '12px 0 70px 0'}}>Spotify Data</h2>
+                                        <h2 style={{margin: '12px 0 70px 50px', textAlign: 'left'}}>Recently Played</h2>
                                         {this.state.profile.spotifyData.recentTracks.map((track, i) => {
                                             return(
                                                 <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px'}}>
