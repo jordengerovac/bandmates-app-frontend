@@ -12,16 +12,55 @@ html, body {
   padding-top: 100px;
 }
 
+.dropdown-item {
+  padding: 0 !important;
+}
+
+.nav-link {
+  padding: 0 !important;
+}
+
 .bandmatesNavbar {
   background-color: #1b1d20 !important;
 }
 
 .bandmatesNavbarLink {
+  padding: 0.25rem 1rem !important;
+  display: block !important;
+  width: 100% !important;
+  text-decoration: none !important;
   color: white !important;
 }
 
+.bandmatesNavbarLinkActive {
+  padding: 0.25rem 1rem !important;
+  display: block !important;
+  width: 100% !important;
+  text-decoration: none !important;
+  color: #01961a !important;
+}
+
+.bandmatesNavbarLink:hover {
+  color: #01961a !important;
+  transition: 0.2s;
+}
+
 #navbarScrollingDropdown {
+  padding: 0.25rem 1rem !important;
   color: white !important;
+}
+
+#navbarScrollingDropdownActive {
+  padding: 0.25rem 1rem !important;
+  color: #01961a !important;
+}
+
+#navbarScrollingDropdown:hover {
+  color: #01961a !important;
+}
+
+#navbarScrollingDropdown:focus {
+  color: #01961a !important;
 }
 
 .dropdown-menu {
@@ -79,9 +118,8 @@ form.bandmatesSignUp {
   box-shadow: none !important;
 }
 
-h2, h3, h4, p {
+h1, h2, h3, h4, h5, h6, p {
   color: white;
-  margin: 5px;
 }
 
 button.bandmatesButton {
@@ -154,6 +192,16 @@ input[type="password"]:focus {
   outline: 3px solid #008216;
 }
 
+input[type="file"] {
+  margin: 15px auto 30px auto;
+  color: white;
+}
+
+label {
+  color: white;
+  margin: 0 25px;
+}
+
 textarea {
   justify-content: center;
   display: block;
@@ -162,7 +210,7 @@ textarea {
   width: 400px;
   height: 200px;
   border: 0;
-  padding: 0px 20px;
+  padding: 7px 20px;
   color: black;
   background-color: white;
   border-radius: 3px;
@@ -204,6 +252,23 @@ textarea:focus {
 .userSearchResult > div > p:nth-child(2) {
   font-size: small;
   color: lightgray;
+}
+
+.active {
+  color: #01961a !important;
+}
+
+.profilePicture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.profileCard {
+  margin: 0 40px 40px 40px;
+  padding: 20px 0;
+  background-color: #1b1d20;
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 700px) {

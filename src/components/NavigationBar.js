@@ -5,7 +5,7 @@ import logo from '../images/bandmates_logo.png'
 import 'bootstrap/dist/css/bootstrap.css';
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { getUserProfile } from '../api/users'; 
+import { getUserProfile } from '../api/users';
 
 class NavigationBar extends React.Component {
     constructor() {
@@ -13,6 +13,7 @@ class NavigationBar extends React.Component {
         this.state = {
             query: '',
             profile: {},
+            activeKey: '',
             loading: true
         }
         this.handleChange = this.handleChange.bind(this);
@@ -22,6 +23,16 @@ class NavigationBar extends React.Component {
 
     componentDidMount() {
         this.getUserProfile();
+        // set active key
+        this.setState({
+            activeKey: window.location.pathname
+        })
+        // set search bar text
+        if (window.location.pathname.substring(window.location.pathname.indexOf("/") + 1) === "search") {
+            this.setState({
+                query: window.location.search.substring(window.location.search.indexOf("?") + 1)
+            })
+        }
     }
 
     handleChange(e) {
@@ -33,7 +44,7 @@ class NavigationBar extends React.Component {
     handleSubmit(e) {
         if (e.key === 'Enter') {
             e.preventDefault();
-            window.location.replace('/search?' + this.state.query);
+            this.inputElement.click();
           }
     } 
 
@@ -61,20 +72,23 @@ class NavigationBar extends React.Component {
                         className="ms-auto my-2 my-lg-0"
                         style={{ maxHeight: '100px'}}
                         navbarScroll
+                        activeKey={this.state.activeKey}
                     >
-                        <Nav.Link href="/home" className="bandmatesNavbarLink">Home</Nav.Link>
-                        <Nav.Link href="/botb" className="bandmatesNavbarLink">BOTB</Nav.Link>
-                        <NavDropdown title="Profile" id="navbarScrollingDropdown">
+                        <Nav.Link as={Link} to="/home" className={this.state.activeKey === "/home" ? "bandmatesNavbarLinkActive" : "bandmatesNavbarLink"}>Home</Nav.Link>
+                        <Nav.Link  as={Link} to="/botb" className={this.state.activeKey === "/botb" ? "bandmatesNavbarLinkActive" : "bandmatesNavbarLink"}>BOTB</Nav.Link>
+                        <NavDropdown title="Profile" id={this.state.activeKey.includes("profile") || this.state.activeKey.includes("spotify") ? "navbarScrollingDropdownActive" : "navbarScrollingDropdown"}>
                             {Object.keys(this.state.profile).length === 0 ? 
-                                <NavDropdown.Item href="/update-profile" className="bandmatesNavbarLink">Profile</NavDropdown.Item> : 
-                                <NavDropdown.Item href={"/profile/" + this.state.profile.id} className="bandmatesNavbarLink">Profile</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/update-profile" className="bandmatesNavbarLink">Create Profile</NavDropdown.Item> : 
+                                <>
+                                <NavDropdown.Item as={Link} to={"/profile/" + this.state.profile.id} className="bandmatesNavbarLink">Profile</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/update-profile" className="bandmatesNavbarLink">Update Profile</NavDropdown.Item>
+                                </>
                             }
-                                <NavDropdown.Item href="/update-profile" className="bandmatesNavbarLink">Update Profile</NavDropdown.Item>
                             {Object.keys(this.state.profile).length !== 0 ? 
-                                <NavDropdown.Item href="/spotify-data" className="bandmatesNavbarLink">Spotify Data</NavDropdown.Item> : null
+                                <NavDropdown.Item as={Link} to="/spotify-data" className="bandmatesNavbarLink">Spotify Data</NavDropdown.Item> : null
                             }
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/logout" className="bandmatesNavbarLink">Logout</NavDropdown.Item>
+                            <NavDropdown.Item as={Link} to="/logout" className="bandmatesNavbarLink">Logout</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Form className="d-flex" style={{margin: '0 0 0 20px'}}>
@@ -88,7 +102,7 @@ class NavigationBar extends React.Component {
                             onChange={this.handleChange}
                             onKeyDown={this.handleSubmit}
                         />
-                        <Link to={'/search?' + this.state.query}><Button className="bandmatesSearchButton">Search</Button></Link>
+                        <Link to={'/search?' + this.state.query}><Button ref={input => this.inputElement = input} className="bandmatesSearchButton">Search</Button></Link>
                     </Form>
                 </Navbar.Collapse>
             </Navbar>

@@ -57,16 +57,21 @@ class SpotifyData extends React.Component {
                         <h2 style={{marginBottom: '50px'}}>Connect a Spotify account</h2>
                         <a href={SPOTIFY_AUTH_URL}><button className="bandmatesButton">Connect</button></a>
                     </div> : 
-                     <div className="App">
+                    <div>
+                     <div className="App" style={{marginBottom: '90px'}}>
                          <h2>Your Spotify Data</h2>
                          {this.state.spotifyData.recentTracks.map((track, i) => {
                              return(
-                                 <div>
-                                    <p onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
+                                <div key={i} style={{display: 'flex', justifyContent: 'center', margin: '20px auto'}}>
+                                    <img alt="album-art" onClick={() => this.setPlayingTrack(track.uri)} src={track.artwork} style={{width: '50px', cursor: 'pointer'}}/>
+                                    <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
                                 </div>
                              )
                          })}
-                         <MusicPlayer token={this.state.spotifyData.spotifyAccessToken} trackUri={this.state.trackUri} />
+                         </div>
+                         <div style={{position: 'fixed', bottom: '0', width: '100%'}}>
+                            <MusicPlayer token={this.state.spotifyData.spotifyAccessToken} trackUri={this.state.trackUri} />
+                         </div>
                     </div> : null
                 }
             </div>

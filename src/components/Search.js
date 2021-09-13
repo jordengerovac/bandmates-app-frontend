@@ -51,12 +51,12 @@ class Search extends React.Component {
 
         return(
             <div style={{height: '200vh'}}>
-                <NavigationBar queryUsers={this.getQueriedUsers} />
+                <NavigationBar />
                 <div className="App">
                     {!this.state.loading ? 
-                        this.state.queriedUsers.length > 0 ? this.state.queriedUsers.map((user) => {
+                        this.state.queriedUsers.length > 0 ? this.state.queriedUsers.map((user, i) => {
                         return(
-                            <div className="userSearchResult">
+                            <div className="userSearchResult" key={i}>
                                 <div>
                                     <p>{user.firstname} {user.lastname}</p>
                                     <p>{user.username}</p>
