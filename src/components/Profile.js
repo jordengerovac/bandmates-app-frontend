@@ -101,7 +101,7 @@ class Profile extends React.Component {
                                         </div>
                                     </div>
                                 </div> : 
-                                <div>
+                                <div className="profileCard">
                                     <h3 style={{margin: '12px 0px 25px 0px'}}>{this.state.profile.user.username !== this.props.authDetails.username ? `${this.state.profile.user.firstname} doesn't` : `You don't`} have any Spotify data to display</h3>
                                     <p>{this.state.profile.user.username !== this.props.authDetails.username ? `Their` : `Your`} data will show up here once {this.state.profile.user.username !== this.props.authDetails.username ? `they` : `you`} connect {this.state.profile.user.username !== this.props.authDetails.username ? `their` : `your`} Bandmates account to Spotify.</p>
                                 </div>
@@ -115,7 +115,7 @@ class Profile extends React.Component {
                                 </div> : null
                             }
                         </div> : null
-                        : null
+                        : <p>Loading your profile data...</p>
                     }
                 </div>
             </div>
