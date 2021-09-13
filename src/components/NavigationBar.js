@@ -62,7 +62,7 @@ class NavigationBar extends React.Component {
 
     render() {
         return(
-            <Navbar className="bandmatesNavbar" expand="lg" fixed="top">
+            <Navbar className="bandmatesNavbar" variant="dark" expand="lg" fixed="top">
                 <Navbar.Brand href="/home">
                     <img src={logo} alt="navbar-logo" style={{width: '40px', borderRadius: '50%', marginLeft: '20px'}} />
                 </Navbar.Brand>

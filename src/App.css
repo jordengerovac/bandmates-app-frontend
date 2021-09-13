@@ -274,15 +274,15 @@ textarea:focus {
 .recentlyPlayedCard {
   margin: 0 40px 40px 40px;
   padding: 20px 0;
-  width: 55vw;
+  width: 65vw;
   background-color: #1b1d20;
   border-radius: 10px;
 }
 
 .topTracksCard {
-  margin: 0 40px 40px 40px;
+  margin: 0 40px 40px 0px;
   padding: 20px 0;
-  width: 45vw;
+  width: 35vw;
   background-color: #1b1d20;
   border-radius: 10px;
 }
