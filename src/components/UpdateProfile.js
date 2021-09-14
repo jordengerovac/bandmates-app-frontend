@@ -91,15 +91,17 @@ class UpdateProfile extends React.Component {
         e.preventDefault();
         const formIsValid = this.handleFormValidation();
         if (formIsValid) {
-            if (!this.state.loading && this.state.profile === null) {
-                this.createProfile();
-                this.uploadImageToProfile();
-                this.updateUser();
-            }
-            else {
-                this.updateProfile();
-                this.uploadImageToProfile();
-                this.updateUser();
+            if (!this.state.loading) {
+                if (this.state.profile === null) {
+                    this.createProfile();
+                    this.uploadImageToProfile();
+                    this.updateUser();
+                }
+                else {
+                    this.updateProfile();
+                    this.uploadImageToProfile();
+                    this.updateUser();
+                }
             }
         }
     }
