@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { initializeSpotify } from '../api/spotifydata';
+import BeatLoader from "react-spinners/BeatLoader";
 
 class ConnectSpotify extends React.Component {
     constructor() {
@@ -45,7 +46,8 @@ class ConnectSpotify extends React.Component {
             <div style={{height: '200vh'}}>
                 <NavigationBar />
                 <div className="App">
-                    <h4 style={{marginBottom: '50px'}}>Connecting your Spotify account...</h4>
+                    <p>Connecting your Spotify account...</p>
+                    <BeatLoader color='#01961a' />
                 </div>
             </div>
         )

@@ -7,6 +7,7 @@ import { getProfileById } from '../api/profiles';
 import { fetchSpotifyData } from '../api/spotifydata';
 import logo from '../images/bandmates_logo.png'
 import MusicPlayer from './MusicPlayer';
+import BeatLoader from "react-spinners/BeatLoader";
 
 class Profile extends React.Component {
     constructor() {
@@ -146,7 +147,7 @@ class Profile extends React.Component {
                                 </div> : null
                             }
                         </div> : null
-                        : <p>Loading your profile data...</p>
+                        : <BeatLoader color='#01961a' />
                     }
                 </div>
             </div>
