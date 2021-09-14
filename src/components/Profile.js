@@ -50,6 +50,7 @@ class Profile extends React.Component {
             return <Redirect to="/edit-profile" />
         }
 
+        console.log(this.state.profile)
         return(
             <div>
                 <NavigationBar />
@@ -67,7 +68,7 @@ class Profile extends React.Component {
                                 <div style={{display: 'flex'}}>
                                     <div className="recentlyPlayedCard">
                                         <h2 style={{margin: '12px 0 70px 50px', textAlign: 'left'}}>Recently Played</h2>
-                                        {this.state.profile.spotifyData.recentTracks.slice(0, 13).map((track, i) => {
+                                        {this.state.profile.spotifyData.recentTracks.slice(0, 18).map((track, i) => {
                                             return(
                                                 <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
                                                     <img alt="album-art" onClick={() => this.setPlayingTrack(track.uri)} src={track.artwork} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
@@ -95,6 +96,16 @@ class Profile extends React.Component {
                                                     <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
                                                         <img alt="album-art" onClick={() => this.setPlayingTrack(artist.uri)} src={artist.imageUrl} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
                                                         <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(artist.uri)}>{i+1}.  Artist: {artist.name}</p>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                        <div className="topTracksCard">
+                                            <h2 style={{margin: '12px 0 70px 50px', textAlign: 'left'}}>Top Genres</h2>
+                                            {this.state.profile.spotifyData.topGenres.slice(0, 3).map((genre, i) => {
+                                                return(
+                                                    <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
+                                                        <p>{genre}</p>
                                                     </div>
                                                 )
                                             })}
