@@ -4,6 +4,7 @@ import { Redirect, Link } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { getQueriedUsers } from '../api/users';
+import BeatLoader from "react-spinners/BeatLoader";
 
 class Search extends React.Component {
     constructor() {
@@ -68,7 +69,7 @@ class Search extends React.Component {
                                 )}
                                 </div>
                             </div>
-                        )}) : <p>No search results</p> : null}
+                        )}) : <p>No search results</p> : <BeatLoader color='#01961a' />}
                 </div>
             </div>
         )

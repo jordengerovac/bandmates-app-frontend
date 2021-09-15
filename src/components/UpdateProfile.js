@@ -5,6 +5,7 @@ import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { getUser, updateUser } from '../api/users'; 
 import { createProfileForUser, updateProfile, uploadImageToProfile } from '../api/profiles';
+import BeatLoader from "react-spinners/BeatLoader";
 
 class UpdateProfile extends React.Component {
     constructor() {
@@ -23,7 +24,8 @@ class UpdateProfile extends React.Component {
             successfulUserSubmission: false,
             invalidFields: {},
             errors: {},
-            loading: true
+            loading: true,
+            submitting: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -91,15 +93,20 @@ class UpdateProfile extends React.Component {
         e.preventDefault();
         const formIsValid = this.handleFormValidation();
         if (formIsValid) {
-            if (!this.state.loading && this.state.profile === null) {
-                this.createProfile();
-                this.uploadImageToProfile();
-                this.updateUser();
-            }
-            else {
-                this.updateProfile();
-                this.uploadImageToProfile();
-                this.updateUser();
+            if (!this.state.loading) {
+                this.setState({
+                    submitting: true
+                })
+                if (this.state.profile === null) {
+                    this.createProfile();
+                    this.uploadImageToProfile();
+                    this.updateUser();
+                }
+                else {
+                    this.updateProfile();
+                    this.uploadImageToProfile();
+                    this.updateUser();
+                }
             }
         }
     }
@@ -204,40 +211,44 @@ class UpdateProfile extends React.Component {
             <div>
                 <NavigationBar key={this.state.successfulProfileSubmission}/>
                 <div className="App">
-                    {this.state.successfulProfileSubmission && this.state.successfulUserSubmission  && (this.state.successfulImageUpload || this.state.image_file === null) ? <p>You have successfully edited your profile</p> : 
-                    <div>
-                        {this.state.profile === null && !this.state.loading ? 
-                            <h2 style={{marginTop: '30px'}}>Create Profile</h2> :
-                            <h2 style={{marginTop: '30px'}}>Update Profile</h2>
-                        }
+                    {!this.state.loading ? 
                         <div>
-                            <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
-                                {this.state.invalidFields["firstname"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["firstname"]}</p> : null}
-                                <input type="text" placeholder="first name" value={this.state.firstname} onChange={this.handleChange} name="firstname"></input>
+                        {this.state.successfulProfileSubmission && this.state.successfulUserSubmission  && (this.state.successfulImageUpload || this.state.image_file === null) ? <p>You have successfully edited your profile</p> : 
+                        <div>
+                            {this.state.profile === null && !this.state.loading ? 
+                                <h2 style={{marginTop: '30px'}}>Create Profile</h2> :
+                                <h2 style={{marginTop: '30px'}}>Update Profile</h2>
+                            }
+                            <div>
+                                <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
+                                    {this.state.invalidFields["firstname"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["firstname"]}</p> : null}
+                                    <input type="text" placeholder="first name" value={this.state.firstname} onChange={this.handleChange} name="firstname"></input>
 
-                                 {this.state.invalidFields["lastname"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["lastname"]}</p> : null}
-                                <input type="text" placeholder="last name" value={this.state.lastname} onChange={this.handleChange} name="lastname"></input>
+                                    {this.state.invalidFields["lastname"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["lastname"]}</p> : null}
+                                    <input type="text" placeholder="last name" value={this.state.lastname} onChange={this.handleChange} name="lastname"></input>
 
-                                {this.state.invalidFields["username"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["username"]}</p> : null}
-                                <input type="text" placeholder="email" value={this.state.username} onChange={this.handleChange} name="username"></input>
-                                <hr style={{color: 'white', margin: '30px 30vw'}}/>
+                                    {this.state.invalidFields["username"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["username"]}</p> : null}
+                                    <input type="text" placeholder="email" value={this.state.username} onChange={this.handleChange} name="username"></input>
+                                    <hr style={{color: 'white', margin: '30px 30vw'}}/>
 
-                                {this.state.profile !== null ? 
-                                    <div>
-                                        <label for="image">Upload a profile picture:</label>
-                                        <input type="file" name="image" onChange={this.handleImagePreview}></input>
-                                        <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio" defaultValue={this.state.profile.bio}></textarea>
-                                    </div> :
-                                    <div>
-                                        <label for="image">Upload a profile picture:</label>
-                                        <input type="file" name="image" onChange={this.handleImagePreview}></input>
-                                        <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio"></textarea>
-                                    </div>
-                                }
-                                <input type="submit" value="Submit" className="bandmatesSubmitButton" />
-                            </form>
+                                    {this.state.profile !== null ? 
+                                        <div>
+                                            <label for="image">Upload a profile picture:</label>
+                                            <input type="file" name="image" onChange={this.handleImagePreview}></input>
+                                            <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio" defaultValue={this.state.profile.bio}></textarea>
+                                        </div> :
+                                        <div>
+                                            <label for="image">Upload a profile picture:</label>
+                                            <input type="file" name="image" onChange={this.handleImagePreview}></input>
+                                            <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio"></textarea>
+                                        </div>
+                                    }
+                                    <input type="submit" value={this.state.submitting ? "Submitting..." : "Submit"} className="bandmatesSubmitButton" disabled={this.state.submitting ? true : false} />
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                        }
+                    </div> : <BeatLoader color='#01961a' />
                     }
                 </div>
             </div>

@@ -50,13 +50,13 @@ export const getUser = async(username, token) => {
     }
 }
 
-export const updateUser = async(id, profile, token) => {
+export const updateUser = async(id, user, token) => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
 
     try {
-        const response = axios.put('/api/v1/users/update/' + id, profile, config)
+        const response = axios.put('/api/v1/users/update/' + id, user, config)
         return response
     } catch(error) {
         return Promise.reject(new Error(error));

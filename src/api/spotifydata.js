@@ -20,7 +20,7 @@ export const fetchSpotifyData = async(username, token) => {
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         };
-        const response = await axios.get('api/v1/spotifydata/fetch/' + username, config);
+        const response = await axios.get('/api/v1/spotifydata/fetch/' + username, config);
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
