@@ -85,7 +85,7 @@ class NavigationBar extends React.Component {
                                 </>
                             }
                             {!this.state.loading && Object.keys(this.state.profile).length !== 0 ? 
-                                <NavDropdown.Item as={Link} to="/spotify-data" className="bandmatesNavbarLink">Spotify Data</NavDropdown.Item> : null
+                                <NavDropdown.Item as={Link} to="/spotify-data" className="bandmatesNavbarLink">Connect Spotify</NavDropdown.Item> : null
                             }
                             <NavDropdown.Divider />
                             <NavDropdown.Item as={Link} to="/logout" className="bandmatesNavbarLink">Logout</NavDropdown.Item>

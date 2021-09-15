@@ -17,6 +17,8 @@ class UpdateProfile extends React.Component {
             lastname: '',
             username: '',
             bio: '',
+            location: '',
+            instrument: '',
             image_preview: null,
             image_file: null,
             successfulImageUpload: false,
@@ -34,10 +36,20 @@ class UpdateProfile extends React.Component {
         this.updateProfile = this.updateProfile.bind(this);
         this.createProfile = this.createProfile.bind(this);
         this.handleImagePreview = this.handleImagePreview.bind(this);
+        this.getLocation = this.getLocation.bind(this);
     }
 
     componentDidMount() {
         this.getUser();
+    }
+
+    getLocation(e) {
+        e.preventDefault();
+        navigator.geolocation.getCurrentPosition(position => {
+            this.setState({
+                location: position.coords.latitude + "," + position.coords.longitude
+            })
+        });
     }
 
     handleChange(e) {    
@@ -137,7 +149,9 @@ class UpdateProfile extends React.Component {
             })
             if (result.profile !== null) {
                 this.setState({
-                    bio: result.data.profile.bio
+                    bio: result.data.profile.bio,
+                    location: result.data.profile.location,
+                    instrument: result.data.profile.instrument
                 })
             }
         } catch(error) {
@@ -147,7 +161,9 @@ class UpdateProfile extends React.Component {
 
     async createProfile() {
         const profile = {
-            bio: this.state.bio
+            bio: this.state.bio,
+            location: this.state.location,
+            instrument: this.state.instrument
         };
 
         try {
@@ -162,7 +178,9 @@ class UpdateProfile extends React.Component {
 
     async updateProfile() {
         const profile = {
-            bio: this.state.bio
+            bio: this.state.bio,
+            location: this.state.location,
+            instrument: this.state.instrument
         };
 
         try {
@@ -216,8 +234,8 @@ class UpdateProfile extends React.Component {
                         {this.state.successfulProfileSubmission && this.state.successfulUserSubmission  && (this.state.successfulImageUpload || this.state.image_file === null) ? <p>You have successfully edited your profile</p> : 
                         <div>
                             {this.state.profile === null && !this.state.loading ? 
-                                <h2 style={{marginTop: '30px'}}>Create Profile</h2> :
-                                <h2 style={{marginTop: '30px'}}>Update Profile</h2>
+                                <h2>Create Profile</h2> :
+                                <h2>Update Profile</h2>
                             }
                             <div>
                                 <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>
@@ -231,18 +249,26 @@ class UpdateProfile extends React.Component {
                                     <input type="text" placeholder="email" value={this.state.username} onChange={this.handleChange} name="username"></input>
                                     <hr style={{color: 'white', margin: '30px 30vw'}}/>
 
-                                    {this.state.profile !== null ? 
-                                        <div>
-                                            <label for="image">Upload a profile picture:</label>
-                                            <input type="file" name="image" onChange={this.handleImagePreview}></input>
-                                            <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio" defaultValue={this.state.profile.bio}></textarea>
-                                        </div> :
-                                        <div>
-                                            <label for="image">Upload a profile picture:</label>
-                                            <input type="file" name="image" onChange={this.handleImagePreview}></input>
-                                            <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio"></textarea>
+                                    <div>
+                                        <label for="image">Upload a profile picture:</label>
+                                        <input type="file" name="image" onChange={this.handleImagePreview}></input>
+                                        <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio" defaultValue={this.state.profile !== null ? this.state.profile.bio : ''}></textarea>
+                                        <div style={{margin: '40px 0'}}>
+                                            <label for="location">Share your location to find nearby bandmates:</label>
+                                            <input type="text" name="location" placeholder="location" value={this.state.location} defaultValue={this.state.profile !== null ? this.state.profile.location : ''} onChange={this.handleChange} disabled></input>
+                                            <button className="bandmatesShareButton" onClick={this.getLocation}>Share</button>
                                         </div>
-                                    }
+                                        <label for="instrument">The instrument you mainly play / want to learn:</label>
+                                        <select onChange={this.handleChange} name="instrument" value={this.state.instrument}>
+                                            <option value="guitar">Guitar</option>
+                                            <option value="drums">Drums</option>
+                                            <option value="bass">Bass</option>
+                                            <option value="vocals">Vocals</option>
+                                            <option value="listener">I'm just a listener</option>
+                                        </select>
+                                        </div>
+                                    <div style={{marginBottom: '35px'}}>
+                                    </div>
                                     <input type="submit" value={this.state.submitting ? "Submitting..." : "Submit"} className="bandmatesSubmitButton" disabled={this.state.submitting ? true : false} />
                                 </form>
                             </div>

@@ -140,6 +140,23 @@ button.bandmatesButton:hover {
   transition: 0.3s;
 }
 
+button.bandmatesShareButton {
+  width: 80px;
+  height: 35px;
+  border: 0;
+  margin: 10px;
+  color: black;
+  background-color: lightgray;
+  border-radius: 3px;
+}
+
+button.bandmatesShareButton:hover {
+  color: black;
+  background-color: gray;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
 input[type="submit"].bandmatesSubmitButton {
   text-align: center;
   display: flex;
@@ -200,6 +217,17 @@ input[type="password"]:focus {
 input[type="file"] {
   margin: 15px auto 30px auto;
   color: white;
+}
+
+select {
+  justify-content: center;
+  width: 200px;
+  height: 40px;
+  padding: 0px 20px;
+  border: 0;
+  color: black;
+  background-color: white;
+  border-radius: 3px;
 }
 
 label {
