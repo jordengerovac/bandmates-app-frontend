@@ -87,18 +87,8 @@ class Profile extends React.Component {
                             </div>
                             {this.state.spotifyData !== null ?
                                 <div style={{display: 'flex'}}>
-                                    <div className="recentlyPlayedCard">
-                                        <h2 style={{margin: '12px 0 50px 50px', textAlign: 'left'}}>Recently Played</h2>
-                                        {this.state.spotifyData.recentTracks.slice(0, 17).map((track, i) => {
-                                            return(
-                                                <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
-                                                    <img alt="album-art" onClick={() => this.setPlayingTrack(track.uri)} src={track.artwork} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
-                                                    <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                    <div>
+                                    <div className="leftProfile">
+
                                         <div className="topTracksCard">
                                             <h2 style={{margin: '12px 0 50px 50px', textAlign: 'left'}}>Top Tracks</h2>
                                             {this.state.spotifyData.topTracks.slice(0, 5).map((track, i) => {
@@ -127,6 +117,30 @@ class Profile extends React.Component {
                                                 return(
                                                     <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '5px 50px', textAlign: 'left'}}>
                                                         <p>{i+1}. {genre}</p>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
+                                    <div className="rightProfile">
+                                        <div className="recentlyPlayedCard">
+                                            <h2 style={{margin: '12px 0 50px 50px', textAlign: 'left'}}>Recently Played</h2>
+                                            {this.state.spotifyData.recentTracks.slice(0, 17).map((track, i) => {
+                                                return(
+                                                    <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
+                                                        <img alt="album-art" onClick={() => this.setPlayingTrack(track.uri)} src={track.artwork} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
+                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                        <div className="recentlyPlayedCard">
+                                            <h2 style={{margin: '12px 0 50px 50px', textAlign: 'left'}}>Recommendations</h2>
+                                            {this.state.spotifyData.recommendedTracks.map((track, i) => {
+                                                return(
+                                                    <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
+                                                        <img alt="album-art" onClick={() => this.setPlayingTrack(track.uri)} src={track.artwork} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
+                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
                                                     </div>
                                                 )
                                             })}

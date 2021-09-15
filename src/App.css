@@ -22,6 +22,7 @@ html, body {
 
 .bandmatesNavbar {
   background-color: #1b1d20 !important;
+  border-bottom: 1px solid #272a2e !important;
 }
 
 .bandmatesNavbarLink {
@@ -276,19 +277,27 @@ textarea:focus {
 }
 
 .recentlyPlayedCard {
-  margin: 0 40px 40px 40px;
+  height: 70vh;
+  overflow: scroll;
+  margin: 0 40px 40px 0px;
   padding: 20px 0;
-  width: 65vw;
   background-color: #1b1d20;
   border-radius: 10px;
 }
 
 .topTracksCard {
-  margin: 0 40px 40px 0px;
+  margin: 0 40px 40px 40px;
   padding: 20px 0;
-  width: 35vw;
   background-color: #1b1d20;
   border-radius: 10px;
+}
+
+.leftProfile {
+  width: 70vw;
+}
+
+.rightProfile {
+  width: 30vw;
 }
 
 @media only screen and (max-width: 700px) {
