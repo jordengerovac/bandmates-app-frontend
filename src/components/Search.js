@@ -79,7 +79,7 @@ class Search extends React.Component {
                                 </div>
                                 <div>
                                 {(user.profile !== null ?
-                                    <Link to={'/profile/' + user.profile.id}><button className="bandmatesButton">View Profiile</button></Link> 
+                                    <Link to={'/profile/' + user.profile.id}><button className="bandmatesButton">View Profile</button></Link> 
                                     : null
                                 )}
                                 </div>

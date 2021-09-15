@@ -5,12 +5,12 @@ import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { getProfileById } from '../api/profiles';
 import { fetchSpotifyData } from '../api/spotifydata';
-import logo from '../images/bandmates_logo.png'
 import MusicPlayer from './MusicPlayer';
 import BeatLoader from "react-spinners/BeatLoader";
 import { GiDrum, GiGuitarBassHead, GiGuitarHead } from 'react-icons/gi';
 import { ImHeadphones } from 'react-icons/im';
 import { IoIosMicrophone } from 'react-icons/io';
+import { FaUserCircle } from 'react-icons/fa';
 
 class Profile extends React.Component {
     constructor() {
@@ -82,7 +82,10 @@ class Profile extends React.Component {
                         Object.keys(this.state.profile).length >= 0 ?
                         <div> 
                             <div className="profileCard">
-                                {this.state.profile.image !== null ? <img className="profilePicture" alt="profile" src={`data:image/jpeg;base64,${this.state.profile.image}`} /> : <img className="profilePicture" alt="profile" src={logo} /> }
+                                {this.state.profile.image !== null ? 
+                                    <img className="profilePicture" alt="profile" src={`data:image/jpeg;base64,${this.state.profile.image}`} /> : 
+                                    <FaUserCircle color="gray" font-size="150px" />
+                                }
                                 <h2 style={{margin: '12px 0px 0px 0px'}}>{this.state.profile.user.firstname} {this.state.profile.user.lastname}</h2>
                                 <h6 style={{color: '#898989'}}>
                                     {this.state.profile.user.username}&nbsp;

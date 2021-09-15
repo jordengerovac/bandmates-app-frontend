@@ -18,7 +18,7 @@ class UpdateProfile extends React.Component {
             username: '',
             bio: '',
             location: '',
-            instrument: '',
+            instrument: 'guitar',
             image_preview: null,
             image_file: null,
             successfulImageUpload: false,
@@ -259,7 +259,7 @@ class UpdateProfile extends React.Component {
                                             <button className="bandmatesShareButton" onClick={this.getLocation}>Share</button>
                                         </div>
                                         <label for="instrument">The instrument you mainly play / want to learn:</label>
-                                        <select onChange={this.handleChange} name="instrument" value={this.state.instrument}>
+                                        <select onChange={this.handleChange} name="instrument" value={this.state.instrument !== "" ? this.state.instrument : "guitar"}>
                                             <option value="guitar">Guitar</option>
                                             <option value="drums">Drums</option>
                                             <option value="bass">Bass</option>

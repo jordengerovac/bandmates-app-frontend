@@ -140,6 +140,24 @@ button.bandmatesButton:hover {
   transition: 0.3s;
 }
 
+button.bandmatesSmallButton {
+  width: 80px;
+  height: 30px;
+  font-size: 14px;
+  border: 0;
+  margin: 10px;
+  color: white;
+  background-color: #008216;
+  border-radius: 3px;
+}
+
+button.bandmatesSmallButton:hover {
+  color: white;
+  background-color: #01961a;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
 button.bandmatesShareButton {
   width: 80px;
   height: 35px;
@@ -261,6 +279,32 @@ textarea:focus {
   background-color: black;
   padding: 20px;
   border-radius: 10px;
+}
+
+.homePageCard {
+  margin: 15px 10px;
+  width: 200px;
+  background-color: #212529;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+.homePageCard > p {
+  margin: 0px 20px;
+}
+
+.homePageCard > p:nth-child(2) {
+  font-size: large;
+}
+
+.homePageCard > p:nth-child(3) {
+  font-size: small;
+  color: lightgray;
+}
+
+.homePageCard > img {
+  margin: 10px 20px;
 }
 
 .userSearchResult {
