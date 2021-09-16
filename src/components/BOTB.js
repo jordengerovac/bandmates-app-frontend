@@ -55,7 +55,7 @@ class BOTB extends React.Component {
                     {!this.state.loading ?
                         <div style={{margin: 'auto', width: '60vw'}}>
                             <h2 style={{textAlign: 'center', marginBottom: '25px'}}>{this.state.name}</h2>
-                            <Link to='/botb-dashboard'><Button style={{margin: '25px'}} className="addBOTBButton">Add Track</Button></Link>
+                            <Link to='/add-track'><Button style={{margin: '25px'}} className="addBOTBButton">Add Track</Button></Link>
                         </div>
                     : <BeatLoader color='#01961a' />
                     }

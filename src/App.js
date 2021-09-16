@@ -13,6 +13,7 @@ import Search from './components/Search';
 import BOTBDashboard from './components/BOTBDashboard';
 import CreateBOTB from './components/CreateBOTB';
 import BOTB from './components/BOTB';
+import AddTrack from './components/AddTrack';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/botb-dashboard" component={BOTBDashboard} />
         <Route path="/create-botb" component={CreateBOTB} />
         <Route path="/botb" component={BOTB} />
+        <Route path="/add-track" component={AddTrack} />
       </Switch>
     </BrowserRouter>
   );

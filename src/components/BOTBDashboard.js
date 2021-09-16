@@ -49,6 +49,10 @@ class BOTBDashboard extends React.Component {
             return <Redirect to="/login" />
         }
 
+        if (!this.state.loading && this.state.profile === null) {
+            return <Redirect to="/update-profile" />
+        }
+
         return(
             <div>
                 <NavigationBar />
