@@ -1,6 +1,6 @@
 import '../App.css';
 import React from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { createBOTBForUser } from '../api/botb';
@@ -12,6 +12,8 @@ class CreateBOTB extends React.Component {
         this.state = {
             name: '',
             urlSlug: '',
+            startDate: '',
+            endDate: '',
             successfulSubmission: false,
             invalidFields: {},
             errors: {},
@@ -61,9 +63,13 @@ class CreateBOTB extends React.Component {
     }
 
     async createBOTB() {
+        var startDate = new Date();
+        var endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
         const botb = {
             name: this.state.name,
-            urlSlug: uuid()
+            urlSlug: uuid(),
+            startDate: startDate.toString(),
+            endDate: endDate.toString()
         };
 
         try {
@@ -85,7 +91,7 @@ class CreateBOTB extends React.Component {
             <div>
                 <NavigationBar key={this.state.successfulProfileSubmission}/>
                 <div className="App">
-                    {this.state.successfulSubmission ? <p>You have successfully created a Battle of the Bands group</p> : 
+                    {this.state.successfulSubmission ? <p>You have successfully created a Battle of the Bands group! Click <Link to="/botb-dashboard" style={{textDecoration: 'none', color: '#008216'}}>here</Link> to view your groups</p> : 
                         <div>
                             <h2>Create New Battle of the Bands Group</h2>
                             <form className="bandmatesSignUp" onSubmit={this.handleSubmit}>

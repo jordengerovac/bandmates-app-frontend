@@ -14,3 +14,12 @@ export const createBOTBForUser = async(username, botb, token) => {
         return Promise.reject(new Error(error));
     }
 }
+
+export const getBOTBByUrlSlug = async(urlSlug, token) => {
+    try {
+        const response = await axios.get('/api/v1/botb/slug/' + urlSlug, { headers: {"Authorization" : `Bearer ${token}`} })
+        return response;
+    } catch (error) {
+        return Promise.reject(new Error(error));
+    }
+}

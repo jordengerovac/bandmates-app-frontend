@@ -12,6 +12,7 @@ import SpotifyData from './components/SpotifyData';
 import Search from './components/Search';
 import BOTBDashboard from './components/BOTBDashboard';
 import CreateBOTB from './components/CreateBOTB';
+import BOTB from './components/BOTB';
 
 function App() {
   return (
@@ -27,8 +28,9 @@ function App() {
         <Route path="/connect-spotify" component={ConnectSpotify} />
         <Route path="/spotify-data" component={SpotifyData} />
         <Route path="/search" component={Search} />
-        <Route path="/botb" component={BOTBDashboard} />
+        <Route path="/botb-dashboard" component={BOTBDashboard} />
         <Route path="/create-botb" component={CreateBOTB} />
+        <Route path="/botb" component={BOTB} />
       </Switch>
     </BrowserRouter>
   );

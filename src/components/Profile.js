@@ -29,7 +29,6 @@ class Profile extends React.Component {
     componentDidMount() {
         const profileId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
         this.getUserProfile(profileId).then((profile) => {
-            console.log(profile.user.username)
             this.getSpotifyData(profile.user.username);
         });
     }

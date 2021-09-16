@@ -45,7 +45,6 @@ class BOTBDashboard extends React.Component {
     }
 
     render() {
-        console.log(this.state.botb)
         if (!this.props.authDetails.authenticated) {
             return <Redirect to="/login" />
         }
@@ -64,8 +63,14 @@ class BOTBDashboard extends React.Component {
                                 <div>
                                     {this.state.botb.map((botb, i) => {
                                         return(
-                                            <div>
-                                                <p>{botb.name} / {botb.urlSlug}</p>
+                                            <div className="userSearchResult" key={i}>
+                                                <div>
+                                                    <p>{botb.name}</p>
+                                                    <p>{botb.users.length} user(s)</p>
+                                                </div>
+                                                <div>
+                                                    <Link to={'/botb/' + botb.urlSlug}><button className="bandmatesButton">View Group</button></Link>
+                                                </div>
                                             </div>
                                         )
                                     })}

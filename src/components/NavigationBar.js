@@ -75,7 +75,7 @@ class NavigationBar extends React.Component {
                         activeKey={this.state.activeKey}
                     >
                         <Nav.Link as={Link} to="/home" className={this.state.activeKey === "/home" ? "bandmatesNavbarLinkActive" : "bandmatesNavbarLink"}>Home</Nav.Link>
-                        <Nav.Link  as={Link} to="/botb" className={this.state.activeKey === "/botb" ? "bandmatesNavbarLinkActive" : "bandmatesNavbarLink"}>BOTB</Nav.Link>
+                        <Nav.Link  as={Link} to="/botb-dashboard" className={this.state.activeKey === "/botb-dashboard" ? "bandmatesNavbarLinkActive" : "bandmatesNavbarLink"}>BOTB</Nav.Link>
                         <NavDropdown title="Profile" id={this.state.activeKey.includes("profile") || this.state.activeKey.includes("spotify") ? "navbarScrollingDropdownActive" : "navbarScrollingDropdown"}>
                             {!this.state.loading && Object.keys(this.state.profile).length === 0 ? 
                                 <NavDropdown.Item as={Link} to="/update-profile" className="bandmatesNavbarLink">Create Profile</NavDropdown.Item> : 
