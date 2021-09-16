@@ -5,8 +5,10 @@ import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import BeatLoader from "react-spinners/BeatLoader";
 import { getUser } from '../api/users';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-class BOTB extends React.Component {
+class BOTBDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -14,7 +16,7 @@ class BOTB extends React.Component {
             firstname:'',
             lastname: '',
             username: '',
-            botb: '',
+            botb: [],
             userId: '',
             loading: true
         }
@@ -43,6 +45,7 @@ class BOTB extends React.Component {
     }
 
     render() {
+        console.log(this.state.botb)
         if (!this.props.authDetails.authenticated) {
             return <Redirect to="/login" />
         }
@@ -52,16 +55,23 @@ class BOTB extends React.Component {
                 <NavigationBar />
                 <div className="App">
                     {!this.state.loading ?
-                        <div>
-                            <h2>Battle of The Bands</h2>
-                            {this.state.botb !== '' ? 
-                            <div>
-                                <p>Create a botb group</p>
-                                <button>Create</button>
-                            </div> : 
-                            <div>
-                                <p>You already created a botb group</p>
-                            </div>}
+                        <div style={{margin: 'auto', width: '60vw'}}>
+                            <h2 style={{textAlign: 'center', marginBottom: '25px'}}>Your Battle of The Bands Groups</h2>
+                            {this.state.botb.length === 0 ? 
+                                <div>
+                                    <p>You are not in any Battle of the Bands groups</p>
+                                </div> : 
+                                <div>
+                                    {this.state.botb.map((botb, i) => {
+                                        return(
+                                            <div>
+                                                <p>{botb.name} / {botb.urlSlug}</p>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            }
+                            <Link to='/create-botb'><Button style={{margin: '25px'}} className="addBOTBButton">Create New Group</Button></Link>
                         </div>
                     : <BeatLoader color='#01961a' />
                     }
@@ -77,4 +87,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(BOTB);
+export default connect(mapStateToProps)(BOTBDashboard);
