@@ -39,7 +39,7 @@ class ConnectSpotify extends React.Component {
         }
 
         if(!this.state.loading && Object.keys(this.state.spotifyData).length !== 0) {
-            return <Redirect to="/spotify-data" />
+            return <Redirect to={"/profile/" + this.state.spotifyData.profile.id} />
         }
 
         return(

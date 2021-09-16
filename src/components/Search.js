@@ -5,6 +5,9 @@ import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { getQueriedUsers } from '../api/users';
 import BeatLoader from "react-spinners/BeatLoader";
+import { GiDrum, GiGuitarBassHead, GiGuitarHead } from 'react-icons/gi';
+import { ImHeadphones } from 'react-icons/im';
+import { IoIosMicrophone } from 'react-icons/io';
 
 class Search extends React.Component {
     constructor() {
@@ -60,11 +63,23 @@ class Search extends React.Component {
                             <div className="userSearchResult" key={i}>
                                 <div>
                                     <p>{user.firstname} {user.lastname}</p>
-                                    <p>{user.username}</p>
+                                    <p>
+                                        {user.username}&nbsp;
+                                        {user.profile ? 
+                                            <div style={{display: 'inline'}}>
+                                                {user.profile.instrument === 'drums' ? <GiDrum /> : null}
+                                                {user.profile.instrument === 'bass' ? <GiGuitarBassHead /> : null}
+                                                {user.profile.instrument === 'guitar' ? <GiGuitarHead /> : null}
+                                                {user.profile.instrument === 'vocals' ? <IoIosMicrophone /> : null}
+                                                {user.profile.instrument === 'listener' ? <ImHeadphones /> : null}
+                                            </div>
+                                        : null
+                                        }
+                                    </p>
                                 </div>
                                 <div>
                                 {(user.profile !== null ?
-                                    <Link to={'/profile/' + user.profile.id}><button className="bandmatesButton">View Profiile</button></Link> 
+                                    <Link to={'/profile/' + user.profile.id}><button className="bandmatesButton">View Profile</button></Link> 
                                     : null
                                 )}
                                 </div>

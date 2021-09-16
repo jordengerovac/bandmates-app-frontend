@@ -5,9 +5,12 @@ import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import { getProfileById } from '../api/profiles';
 import { fetchSpotifyData } from '../api/spotifydata';
-import logo from '../images/bandmates_logo.png'
 import MusicPlayer from './MusicPlayer';
 import BeatLoader from "react-spinners/BeatLoader";
+import { GiDrum, GiGuitarBassHead, GiGuitarHead } from 'react-icons/gi';
+import { ImHeadphones } from 'react-icons/im';
+import { IoIosMicrophone } from 'react-icons/io';
+import { FaUserCircle } from 'react-icons/fa';
 
 class Profile extends React.Component {
     constructor() {
@@ -25,8 +28,10 @@ class Profile extends React.Component {
 
     componentDidMount() {
         const profileId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
-        this.getUserProfile(profileId);
-        this.getSpotifyData();
+        this.getUserProfile(profileId).then((profile) => {
+            console.log(profile.user.username)
+            this.getSpotifyData(profile.user.username);
+        });
     }
 
     setPlayingTrack(uri) {
@@ -42,20 +47,20 @@ class Profile extends React.Component {
                 profile: result.data,
                 loadingProfile: false
             })
+            return result.data;
         } catch(error) {
             console.error();
         }
     }
 
-    async getSpotifyData() {
+    async getSpotifyData(username) {
         try {
-            const result = await fetchSpotifyData(this.props.authDetails.username, this.props.authDetails.bandmates_access_token);
+            const result = await fetchSpotifyData(username, this.props.authDetails.bandmates_access_token);
             this.setState({
                 spotifyData: result.data
             })
         } catch(error) {
             console.log(error)
-            console.log("why is this here")
         }
         this.setState({
             loadingSpotifyData: false
@@ -71,7 +76,6 @@ class Profile extends React.Component {
             return <Redirect to="/update-profile" />
         }
 
-        console.log(this.state)
         return(
             <div>
                 <NavigationBar />
@@ -80,9 +84,19 @@ class Profile extends React.Component {
                         Object.keys(this.state.profile).length >= 0 ?
                         <div> 
                             <div className="profileCard">
-                                {this.state.profile.image !== null ? <img className="profilePicture" alt="profile" src={`data:image/jpeg;base64,${this.state.profile.image}`} /> : <img className="profilePicture" alt="profile" src={logo} /> }
+                                {this.state.profile.image !== null ? 
+                                    <img className="profilePicture" alt="profile" src={`data:image/jpeg;base64,${this.state.profile.image}`} /> : 
+                                    <FaUserCircle color="gray" font-size="150px" />
+                                }
                                 <h2 style={{margin: '12px 0px 0px 0px'}}>{this.state.profile.user.firstname} {this.state.profile.user.lastname}</h2>
-                                <h6 style={{color: '#898989'}}>{this.state.profile.user.username}</h6>
+                                <h6 style={{color: '#898989'}}>
+                                    {this.state.profile.user.username}&nbsp;
+                                    {this.state.profile.instrument === 'drums' ? <GiDrum /> : null}
+                                    {this.state.profile.instrument === 'bass' ? <GiGuitarBassHead /> : null}
+                                    {this.state.profile.instrument === 'guitar' ? <GiGuitarHead /> : null}
+                                    {this.state.profile.instrument === 'vocals' ? <IoIosMicrophone /> : null}
+                                    {this.state.profile.instrument === 'listener' ? <ImHeadphones /> : null}
+                                </h6>
                                 <p style={{margin: '22px auto 0px auto', width: '32vw'}}>{this.state.profile.bio}</p>
                             </div>
                             {this.state.spotifyData !== null ?

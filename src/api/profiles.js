@@ -2,6 +2,15 @@ import axios from 'axios';
 import store from '../store';
 import { axiosInstance } from '../api/axios'
 
+export const getAllProfiles = async(token) => {
+    try {
+        const response = await axios.get('/api/v1/profiles', { headers: {"Authorization" : `Bearer ${token}`} })
+        return response;
+    } catch (error) {
+        return Promise.reject(new Error(error));
+    }
+}
+
 export const getProfileById = async(id, token) => {
     try {
         const response = await axios.get('/api/v1/profiles/' + id, { headers: {"Authorization" : `Bearer ${token}`} })
