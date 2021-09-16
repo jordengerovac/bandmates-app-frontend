@@ -23,6 +23,26 @@ export const registerUser = async(firstname, lastname, username, password) => {
     }
 }
 
+export const addRoleToUser = async(username, roleName, token) => {
+    try {
+        const config = {
+            headers: { 
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        };
+
+        var formData = new FormData();
+        formData.append("username", username)
+        formData.append("roleName", roleName)
+
+        const response = await axios.post('/api/v1/roles/add-to-user', formData, config)
+        return response;
+    } catch (error) {
+        return Promise.reject(new Error(error));
+    }
+}
+
 export const getQueriedUsers = async(query, token) => {
     try {
         const response = await axios.get('/api/v1/users/query/?search=' + '(firstname:\'*' + query + '*\' OR lastname:\'*' + query + '*\' OR username: \'*' + query + '*\')', { headers: {"Authorization" : `Bearer ${token}`} })

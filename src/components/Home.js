@@ -8,12 +8,14 @@ import { GiDrum, GiGuitarBassHead, GiGuitarHead } from 'react-icons/gi';
 import { ImHeadphones } from 'react-icons/im';
 import { IoIosMicrophone } from 'react-icons/io';
 import { FaUserCircle } from 'react-icons/fa';
+import BeatLoader from "react-spinners/BeatLoader";
 
 class Home extends React.Component {
     constructor() {
         super();
         this.state = {
-            profiles: []
+            profiles: [],
+            loading: true
         }
         this.getProfiles = this.getProfiles.bind(this);
     }
@@ -26,7 +28,8 @@ class Home extends React.Component {
         try {
             const result = await getAllProfiles(this.props.authDetails.bandmates_access_token)
             this.setState({
-                profiles: result.data
+                profiles: result.data,
+                loading: false
             })
         } catch(error) {
             console.log(error)
@@ -42,8 +45,9 @@ class Home extends React.Component {
             <div>
                 <NavigationBar />
                 <div className="App">
+                    {!this.state.loading ?
                     <div style={{margin: '20px auto', width: '60vw'}}>
-                    <h4 style={{textAlign: 'left'}}>Bandmates You May Know</h4>
+                    {this.state.profiles.length > 0 ? <h4 style={{textAlign: 'left'}}>Bandmates You May Know</h4> : <h4>There's nobody on Bandmates yet :(</h4>}
                         <div>
                             <div style={{display: 'flex', flexWrap: 'wrap'}}>
                                 {this.state.profiles.slice(0, 12).map((profile, i) => {
@@ -67,7 +71,7 @@ class Home extends React.Component {
                                 })}
                             </div>
                         </div>
-                    </div>
+                    </div> : <BeatLoader color='#01961a' />}
                 </div>
             </div>
         )

@@ -28,8 +28,10 @@ class Profile extends React.Component {
 
     componentDidMount() {
         const profileId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
-        this.getUserProfile(profileId);
-        this.getSpotifyData();
+        this.getUserProfile(profileId).then((profile) => {
+            console.log(profile.user.username)
+            this.getSpotifyData(profile.user.username);
+        });
     }
 
     setPlayingTrack(uri) {
@@ -45,20 +47,20 @@ class Profile extends React.Component {
                 profile: result.data,
                 loadingProfile: false
             })
+            return result.data;
         } catch(error) {
             console.error();
         }
     }
 
-    async getSpotifyData() {
+    async getSpotifyData(username) {
         try {
-            const result = await fetchSpotifyData(this.props.authDetails.username, this.props.authDetails.bandmates_access_token);
+            const result = await fetchSpotifyData(username, this.props.authDetails.bandmates_access_token);
             this.setState({
                 spotifyData: result.data
             })
         } catch(error) {
             console.log(error)
-            console.log("why is this here")
         }
         this.setState({
             loadingSpotifyData: false
