@@ -26,7 +26,7 @@ export const getBOTBByUrlSlug = async(urlSlug, token) => {
 
 export const addUserToBOTB = async(username, botbId, token) => {
     try {
-        const response = await axios.post('/api/v1/botb/users/add/' + username + '/' + botbId, { headers: {"Authorization" : `Bearer ${token}`} })
+        const response = await axios.put('/api/v1/botb/users/add/' + username + '/' + botbId, { headers: {"Authorization" : `Bearer ${token}`} })
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
@@ -45,6 +45,15 @@ export const addTrackToBOTB = async(username, botbId, track, token) => {
 export const voteOnBOTBTrack = async(username, seedId, botbId, token) => {
     try {
         const response = await axios.post('/api/v1/botb/votes/add/' + username + '/' + seedId + '/' + botbId,  { headers: {"Authorization" : `Bearer ${token}`} })
+        return response;
+    } catch (error) {
+        return Promise.reject(new Error(error));
+    }
+}
+
+export const removeVoteFromBOTBTrack = async(username, seedId, botbId, token) => {
+    try {
+        const response = await axios.post('/api/v1/botb/votes/remove/' + username + '/' + seedId + '/' + botbId,  { headers: {"Authorization" : `Bearer ${token}`} })
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
