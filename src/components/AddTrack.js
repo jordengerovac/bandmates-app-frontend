@@ -60,7 +60,8 @@ class AddTrack extends React.Component {
             artwork: artwork,
             seedId: seedId
         }
-        this.props.addTrack(track)
+        this.props.addTrack(track);
+        this.props.modalPopup();
     }
 
     async getUserProfile() {
@@ -109,8 +110,8 @@ class AddTrack extends React.Component {
                         return(
                             <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
                                 <img alt="album-art" src={track.album.images[2].url} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
-                                <p style={{cursor: 'pointer', marginTop: '12px'}}>{i+1}.  Artist: {track.artists[0].name}, Song Name: {track.name}</p>
-                                <button className="addTrackButton" onClick={() => this.handleAddTrack(track.artists[0].name, track.name, track.uri,track.album.images[2].url, track.id)}><AiOutlinePlus /></button>
+                                <p style={{cursor: 'pointer', marginTop: '12px'}}>{track.name} by {track.artists[0].name}</p>
+                                <button className="addTrackButton" onClick={() => this.handleAddTrack(track.artists[0].name, track.name, track.uri,track.album.images[1].url, track.id)}><AiOutlinePlus /></button>
                             </div>
                         )
                     })}
