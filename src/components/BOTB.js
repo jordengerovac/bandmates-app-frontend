@@ -4,37 +4,133 @@ import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import BeatLoader from "react-spinners/BeatLoader";
-import { getUser } from '../api/users';
+import { getBOTBByUrlSlug, addTrackToBOTB, addUserToBOTB, voteOnBOTBTrack, removeVoteFromBOTBTrack } from '../api/botb';
+import { getUserProfile } from '../api/users';
+import { Button } from 'react-bootstrap';
+import AddTrack from './AddTrack';
+import { BsFillHeartFill } from 'react-icons/bs';
+import MusicPlayer from './MusicPlayer';
+import AddUser from './AddUser';
 
 class BOTB extends React.Component {
     constructor() {
         super();
         this.state = {
-            profile: '',
-            firstname:'',
-            lastname: '',
-            username: '',
-            botb: '',
-            userId: '',
-            loading: true
+            id: '',
+            name: '',
+            startDate: '',
+            endDate: '',
+            tracksAdded: {},
+            trackVotes: {},
+            trackUri: '',
+            showTrackModal: false,
+            showUserModal: false,
+            loading: true,
+            profile: null,
+            loadingProfile: true
         }
-        this.getUser = this.getUser.bind(this);
+        this.getBOTB = this.getBOTB.bind(this);
+        this.trackModalPopup = this.trackModalPopup.bind(this);
+        this.userModalPopup = this.userModalPopup.bind(this);
+        this.addTrack = this.addTrack.bind(this);
+        this.addUser = this.addUser.bind(this);
+        this.voteOnTrack = this.voteOnTrack.bind(this);
+        this.removeVoteFromTrack = this.removeVoteFromTrack.bind(this);
+        this.countTrackVotes = this.countTrackVotes.bind(this);
+        this.getProfile = this.getProfile.bind(this);
     }
 
     componentDidMount() {
-        this.getUser();
+        const urlSlug = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+        this.getBOTB(urlSlug);
+        this.getProfile();
     }
 
-    async getUser() {
+    setPlayingTrack(uri) {
+        this.setState({
+            trackUri: uri
+        })
+    }
+
+    trackModalPopup() {
+        this.setState({
+            showTrackModal: !this.state.showTrackModal
+        })
+    }
+
+    userModalPopup() {
+        this.setState({
+            showUserModal: !this.state.showUserModal
+        })
+    }
+
+    async getProfile() {
         try {
-            const result = await getUser(this.props.authDetails.username, this.props.authDetails.bandmates_access_token);
+            const result = await getUserProfile(this.props.authDetails.username, this.props.authDetails.bandmates_access_token);
             this.setState({
-                profile: result.data.profile,
-                firstname: result.data.firstname,
-                lastname: result.data.lastname,
-                username: result.data.username,
-                botb: result.data.botb,
-                userId: result.data.id,
+                profile: result.data,
+                loadingProfile: false
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async voteOnTrack(seedId) {
+        try {
+            await voteOnBOTBTrack(this.props.authDetails.username, seedId, this.state.id, this.props.authDetails.bandmates_access_token).then((result) => {
+                this.setState({
+                    trackVotes: result.data.trackVotes
+                })
+            })
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    async removeVoteFromTrack(seedId) {
+        try {
+            await removeVoteFromBOTBTrack(this.props.authDetails.username, seedId, this.state.id, this.props.authDetails.bandmates_access_token).then((result) => {
+                this.setState({
+                    trackVotes: result.data.trackVotes
+                })
+            })
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    async addTrack(track) {
+        try {
+            await addTrackToBOTB(this.props.authDetails.username, this.state.id, track, this.props.authDetails.bandmates_access_token).then((result) => {
+                this.setState({
+                    tracksAdded: result.data.tracksAdded,
+                    trackVotes: result.data.trackVotes
+                })
+            })
+        } catch(error) {
+            console.error();
+        }
+    }
+
+    async addUser(username) {
+        try {
+            await addUserToBOTB(username, this.state.id, this.props.authDetails.bandmates_access_token)
+        } catch(error) {
+            console.error();
+        }
+    }
+
+    async getBOTB(urlSlug) {
+        try {
+            const result = await getBOTBByUrlSlug(urlSlug, this.props.authDetails.bandmates_access_token);
+            this.setState({
+                name: result.data.name,
+                id: result.data.id,
+                startDate: result.data.startDate,
+                endDate: result.data.endDate,
+                tracksAdded: result.data.tracksAdded,
+                trackVotes: result.data.trackVotes,
                 loading: false
             })
         } catch(error) {
@@ -42,26 +138,79 @@ class BOTB extends React.Component {
         }
     }
 
+    countTrackVotes(seedId) {
+        var count = 0;
+        for (var vote in this.state.trackVotes) {
+            if (this.state.trackVotes[vote] === seedId) {
+                count = count + 1;
+            }
+        }
+        return count;
+    }
+
     render() {
         if (!this.props.authDetails.authenticated) {
             return <Redirect to="/login" />
+        }
+
+        if (!this.state.loading) {
+            if (new Date(new Date(this.state.endDate).toDateString()) < new Date(new Date().toDateString())) {
+                return(
+                    <div>
+                        <p>This contest is over</p>
+                    </div>
+                )
+            }
         }
 
         return(
             <div>
                 <NavigationBar />
                 <div className="App">
-                    {!this.state.loading ?
-                        <div>
-                            <h2>Battle of The Bands</h2>
-                            {this.state.botb !== '' ? 
+                    {!this.state.loading && !this.state.loadingProfile ?
+                        <div style={{margin: 'auto'}}>
+                            <h2 style={{textAlign: 'center'}}>{this.state.name}</h2>
+                            <p style={{marginBottom: '25px', fontSize: 'small', color: 'gray'}}>Voting ends on {new Date(this.state.endDate).toISOString().slice(0, 10)}</p>
+                            {Object.keys(this.state.tracksAdded).map((item, i) => {
+                                return(
+                                    <div style={{display: 'flex', margin: '20px auto 20px auto', width: '70vw'}}>
+                                        <div key={i} style={{display: 'flex', justifyContent: 'space-between', margin: '0px auto 0px auto', textAlign: 'left', backgroundColor: '#1b1d20', width: '70%', cursor: 'pointer'}} onClick={() => this.setPlayingTrack(this.state.tracksAdded[item].uri)}>
+                                            <div>
+                                                <img alt="album-art" src={this.state.tracksAdded[item].artwork} style={{marginRight: '15px', width: 'auto', maxHeight: '150px'}}/>
+                                            </div>
+                                            <div style={{padding: '25px 40px 0px 0px'}}>
+                                                <p style={{cursor: 'pointer', margin: '12px 0px 0px 0px', fontSize: 'large', textAlign: 'right'}}>{this.state.tracksAdded[item].songName} by {this.state.tracksAdded[item].artist}</p>
+                                                <p style={{fontSize: 'small', color: 'gray', textAlign: 'right', padding: '0px'}}>added by {item}</p>
+                                            </div>
+                                        </div>
+                                        <div style={{position: 'relative', top: '50px', right: '75px'}}>
+                                            <div>
+                                                {this.state.trackVotes[this.props.authDetails.username] === this.state.tracksAdded[item].seedId ? 
+                                                    <BsFillHeartFill size={"30px"} color="#df3030" style={{cursor: 'pointer'}} onClick={() => this.removeVoteFromTrack(this.state.tracksAdded[item].seedId)} /> :
+                                                    <BsFillHeartFill size={"30px"} color="white" style={{cursor: 'pointer'}} onClick={() => this.voteOnTrack(this.state.tracksAdded[item].seedId)} />
+                                                }
+                                                <p style={{fontSize: 'small'}}>{this.countTrackVotes(this.state.tracksAdded[item].seedId )}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                                <Button onClick={this.trackModalPopup} style={{margin: '25px'}} className="addBOTBButton">Add Track</Button>
+                                <Button onClick={this.userModalPopup} style={{margin: '25px'}} className="addBOTBButton">Add User</Button>
+                            </div>
+                            <AddTrack showModal={this.state.showTrackModal} modalPopup={this.trackModalPopup} addTrack={this.addTrack} profile={this.state.profile} />
+                            <AddUser showModal={this.state.showUserModal} modalPopup={this.userModalPopup} addUser={this.addUser} profile={this.state.profile} botbId={this.state.id} />
                             <div>
-                                <p>Create a botb group</p>
-                                <button>Create</button>
-                            </div> : 
-                            <div>
-                                <p>You already created a botb group</p>
-                            </div>}
+                                {this.state.profile.spotifyData !== null ?
+                                    <div>
+                                        <div style={{marginBottom: '90px'}}></div>
+                                        <div style={{position: 'fixed', bottom: '0', width: '100%'}}>
+                                            <MusicPlayer token={this.state.profile.spotifyData.spotifyAccessToken} trackUri={this.state.trackUri} />
+                                        </div>
+                                    </div> : null
+                                }
+                            </div>
                         </div>
                     : <BeatLoader color='#01961a' />
                     }

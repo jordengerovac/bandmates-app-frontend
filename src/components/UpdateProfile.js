@@ -231,7 +231,7 @@ class UpdateProfile extends React.Component {
                 <div className="App">
                     {!this.state.loading ? 
                         <div>
-                        {this.state.successfulProfileSubmission && this.state.successfulUserSubmission  && (this.state.successfulImageUpload || this.state.image_file === null) ? <p>You have successfully edited your profile</p> : 
+                        {this.state.successfulProfileSubmission && this.state.successfulUserSubmission  && (this.state.successfulImageUpload || this.state.image_file === null) ? <p>You have successfully edited your profile!</p> : 
                         <div>
                             {this.state.profile === null && !this.state.loading ? 
                                 <h2>Create Profile</h2> :

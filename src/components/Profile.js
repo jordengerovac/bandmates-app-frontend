@@ -24,12 +24,12 @@ class Profile extends React.Component {
         }
         this.getUserProfile = this.getUserProfile.bind(this);
         this.getSpotifyData = this.getSpotifyData.bind(this);
+        this.capitalizeFirstLetter = this.capitalizeFirstLetter.bind(this);
     }
 
     componentDidMount() {
         const profileId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
         this.getUserProfile(profileId).then((profile) => {
-            console.log(profile.user.username)
             this.getSpotifyData(profile.user.username);
         });
     }
@@ -65,6 +65,10 @@ class Profile extends React.Component {
         this.setState({
             loadingSpotifyData: false
         })
+    }
+
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     render() {
@@ -109,7 +113,7 @@ class Profile extends React.Component {
                                                 return(
                                                     <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
                                                         <img alt="album-art" onClick={() => this.setPlayingTrack(track.uri)} src={track.artwork} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
-                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
+                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}. {track.songName} by {track.artist}</p>
                                                     </div>
                                                 )
                                             })}
@@ -120,7 +124,7 @@ class Profile extends React.Component {
                                                 return(
                                                     <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
                                                         <img alt="album-art" onClick={() => this.setPlayingTrack(artist.uri)} src={artist.imageUrl} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
-                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(artist.uri)}>{i+1}.  Artist: {artist.name}</p>
+                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(artist.uri)}>{i+1}. {artist.name}</p>
                                                     </div>
                                                 )
                                             })}
@@ -130,7 +134,7 @@ class Profile extends React.Component {
                                             {this.state.spotifyData.topGenres.slice(0, 3).map((genre, i) => {
                                                 return(
                                                     <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '5px 50px', textAlign: 'left'}}>
-                                                        <p>{i+1}. {genre}</p>
+                                                        <p>{i+1}. {this.capitalizeFirstLetter(genre)}</p>
                                                     </div>
                                                 )
                                             })}
@@ -143,7 +147,7 @@ class Profile extends React.Component {
                                                 return(
                                                     <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
                                                         <img alt="album-art" onClick={() => this.setPlayingTrack(track.uri)} src={track.artwork} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
-                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
+                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}. {track.songName} by {track.artist}</p>
                                                     </div>
                                                 )
                                             })}
@@ -154,7 +158,7 @@ class Profile extends React.Component {
                                                 return(
                                                     <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
                                                         <img alt="album-art" onClick={() => this.setPlayingTrack(track.uri)} src={track.artwork} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
-                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}.  Artist: {track.artist}, Song Name: {track.songName}</p>
+                                                        <p style={{cursor: 'pointer'}} onClick={() => this.setPlayingTrack(track.uri)}>{i+1}. {track.songName} by {track.artist}</p>
                                                     </div>
                                                 )
                                             })}
