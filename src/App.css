@@ -140,6 +140,23 @@ button.bandmatesButton:hover {
   transition: 0.3s;
 }
 
+button.bandmatesCloseButton {
+  width: 100px;
+  height: 40px;
+  border: 0;
+  margin: 10px;
+  color: white;
+  background-color: #df3030;
+  border-radius: 3px;
+}
+
+button.bandmatesCloseButton:hover {
+  color: white;
+  background-color: #f73c3c;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
 button.addBOTBButton {
   width: 170px;
   height: 40px;
@@ -150,7 +167,32 @@ button.addBOTBButton {
   border-radius: 3px;
 }
 
+button.addBOTBButton:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: #008216;
+}
+
 button.addBOTBButton:hover {
+  color: white;
+  background-color: #01961a;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button.addTrackButton {
+  width: 35px;
+  height: 35px;
+  font-size: 14px;
+  border: 0;
+  margin: 8px 0px 0px 15px;
+  color: white;
+  padding: 0px 0px 2.5px 0px;
+  background-color: #008216;
+  border-radius: 50%;
+}
+
+button.addTrackButton:hover {
   color: white;
   background-color: #01961a;
   cursor: pointer;
@@ -387,6 +429,40 @@ textarea:focus {
 
 .rightProfile {
   width: 30vw;
+}
+
+.modal-content {
+  color: white !important;
+  background-color: #1b1d20 !important;
+  border: none !important;
+  padding: 30px !important;
+}
+
+.modal-body {
+  max-height: 250px !important;
+  overflow: scroll;
+}
+
+.modal-header {
+  color: white !important;
+  background-color: #1b1d20 !important;
+  border: none !important;
+}
+
+.modal-footer {
+  color: white !important;
+  background-color: #1b1d20 !important;
+  border: none !important;
+}
+
+.btn-close {
+  box-shadow: none !important;
+  color: white !important;
+}
+
+.close {
+  color: white !important; 
+  opacity: 1;
 }
 
 @media only screen and (max-width: 700px) {

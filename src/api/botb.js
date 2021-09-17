@@ -23,3 +23,21 @@ export const getBOTBByUrlSlug = async(urlSlug, token) => {
         return Promise.reject(new Error(error));
     }
 }
+
+export const addUserToBOTB = async(username, botbId, token) => {
+    try {
+        const response = await axios.post('/api/v1/botb/users/add/' + username + '/' + botbId, { headers: {"Authorization" : `Bearer ${token}`} })
+        return response;
+    } catch (error) {
+        return Promise.reject(new Error(error));
+    }
+}
+
+export const addTrackToBOTB = async(username, botbId, track, token) => {
+    try {
+        const response = await axios.post('/api/v1/botb/tracks/add/' + username + '/' + botbId, track,  { headers: {"Authorization" : `Bearer ${token}`} })
+        return response;
+    } catch (error) {
+        return Promise.reject(new Error(error));
+    }
+}
