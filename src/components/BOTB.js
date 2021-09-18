@@ -134,6 +134,7 @@ class BOTB extends React.Component {
                 endDate: result.data.endDate,
                 tracksAdded: result.data.tracksAdded,
                 trackVotes: result.data.trackVotes,
+                users: result.data.users,
                 loading: false
             })
         } catch(error) {
@@ -216,6 +217,12 @@ class BOTB extends React.Component {
 
         if (this.state.deleted) {
             return <Redirect to="/botb-dashboard" />
+        }
+
+        if (!this.state.loading) {
+            if (!this.state.users.includes(this.props.authDetails.username)) {
+                return <p>You do not have access to this page</p>
+            }
         }
 
         if (!this.state.loading) {

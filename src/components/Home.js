@@ -47,27 +47,35 @@ class Home extends React.Component {
                 <div className="App">
                     {!this.state.loading ?
                     <div style={{margin: '20px auto', width: '60vw'}}>
-                    {this.state.profiles.length > 0 ? <h4 style={{textAlign: 'left'}}>Bandmates You May Know</h4> : <h4>There's nobody on Bandmates yet :(</h4>}
+                    {this.state.profiles.length === 0 ? <h4>There's nobody else on Bandmates yet :(</h4> : null}
                         <div>
                             <div style={{display: 'flex', flexWrap: 'wrap'}}>
                                 {this.state.profiles.slice(0, 12).map((profile, i) => {
-                                    return(
-                                        <div className="homePageCard">
-                                            {profile.image !== null ? 
-                                                <img alt="profilePicture" style={{width: '50px', height: '50px', borderRadius: '50%'}} src={profile.image} /> : 
-                                                <FaUserCircle color="gray" font-size="50px" />
-                                            }
-                                            <p>{profile.user.firstname} {profile.user.lastname}</p>
-                                            <p>{profile.user.username}&nbsp;
-                                                {profile.instrument === 'drums' ? <GiDrum /> : null}
-                                                {profile.instrument === 'bass' ? <GiGuitarBassHead /> : null}
-                                                {profile.instrument === 'guitar' ? <GiGuitarHead /> : null}
-                                                {profile.instrument === 'vocals' ? <IoIosMicrophone /> : null}
-                                                {profile.instrument === 'listener' ? <ImHeadphones /> : null}
-                                            </p>
-                                            <Link to={'/profile/' + profile.id}><button className="bandmatesSmallButton">View</button></Link> 
-                                        </div>
-                                    )
+                                    if (profile.user.username !== this.props.authDetails.username) {
+                                        return(
+                                            <div>
+                                                <h4 style={{textAlign: 'left'}}>Bandmates You May Know</h4>
+                                                <div className="homePageCard">
+                                                    {profile.image !== null ? 
+                                                        <img alt="profilePicture" style={{width: '50px', height: '50px', borderRadius: '50%'}} src={profile.image} /> : 
+                                                        <FaUserCircle color="gray" font-size="50px" />
+                                                    }
+                                                    <p>{profile.user.firstname} {profile.user.lastname}</p>
+                                                    <p>{profile.user.username}&nbsp;
+                                                        {profile.instrument === 'drums' ? <GiDrum /> : null}
+                                                        {profile.instrument === 'bass' ? <GiGuitarBassHead /> : null}
+                                                        {profile.instrument === 'guitar' ? <GiGuitarHead /> : null}
+                                                        {profile.instrument === 'vocals' ? <IoIosMicrophone /> : null}
+                                                        {profile.instrument === 'listener' ? <ImHeadphones /> : null}
+                                                    </p>
+                                                    <Link to={'/profile/' + profile.id}><button className="bandmatesSmallButton">View</button></Link> 
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                    else {
+                                        return(null)
+                                    }
                                 })}
                             </div>
                         </div>
