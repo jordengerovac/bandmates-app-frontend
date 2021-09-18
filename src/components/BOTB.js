@@ -4,9 +4,8 @@ import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
 import BeatLoader from "react-spinners/BeatLoader";
-import { getBOTBByUrlSlug, addTrackToBOTB, addUserToBOTB, voteOnBOTBTrack, removeVoteFromBOTBTrack } from '../api/botb';
+import { getBOTBByUrlSlug, addTrackToBOTB, addUserToBOTB, voteOnBOTBTrack, removeVoteFromBOTBTrack, updateBOTB, deleteBOTB } from '../api/botb';
 import { getUserProfile } from '../api/users';
-import { Button } from 'react-bootstrap';
 import AddTrack from './AddTrack';
 import { BsFillHeartFill } from 'react-icons/bs';
 import MusicPlayer from './MusicPlayer';
@@ -27,7 +26,8 @@ class BOTB extends React.Component {
             showUserModal: false,
             loading: true,
             profile: null,
-            loadingProfile: true
+            loadingProfile: true,
+            deleted: false
         }
         this.getBOTB = this.getBOTB.bind(this);
         this.trackModalPopup = this.trackModalPopup.bind(this);
@@ -38,6 +38,9 @@ class BOTB extends React.Component {
         this.removeVoteFromTrack = this.removeVoteFromTrack.bind(this);
         this.countTrackVotes = this.countTrackVotes.bind(this);
         this.getProfile = this.getProfile.bind(this);
+        this.getWinner = this.getWinner.bind(this);
+        this.updateBOTB = this.updateBOTB.bind(this);
+        this.deleteBOTB = this.deleteBOTB.bind(this);
     }
 
     componentDidMount() {
@@ -148,16 +151,86 @@ class BOTB extends React.Component {
         return count;
     }
 
+    getWinner() {
+        var voteCount = {}
+        const votesArray = Object.values(this.state.trackVotes)
+        for (var i in votesArray) {
+            if (voteCount[votesArray[i]]) {
+                voteCount[votesArray[i]] = voteCount[votesArray[i]] + 1;
+            }
+            else {
+                voteCount[votesArray[i]] = 1
+            }
+        }
+        if (Object.keys(voteCount).length < 1) {
+            return null;
+        }
+        const winningTrackSeedId = Object.keys(voteCount).reduce((a, b) => voteCount[a] > voteCount[b] ? a : b);
+
+        const tracksArray = Object.values(this.state.tracksAdded)
+        for (var j in tracksArray) {
+            if (tracksArray[j].seedId === winningTrackSeedId)
+                return tracksArray[j]
+        }
+        return null;
+    }
+
+    async updateBOTB() {
+        try{
+            var startDate = new Date();
+            var endDate = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+            const botb = {
+                startDate: startDate,
+                endDate: endDate,
+                tracksAdded: {},
+                trackVotes: {}
+            }
+            await updateBOTB(this.state.id, botb, this.props.authDetails.bandmates_access_token).then(result => {
+                this.setState({
+                    startDate: startDate.toISOString(),
+                    endDate: endDate.toISOString(),
+                    tracksAdded: {},
+                    trackVotes: {}
+                })
+            })
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    async deleteBOTB() {
+        try{
+            await deleteBOTB(this.state.id, this.props.authDetails.bandmates_access_token)
+            this.setState({
+                deleted: true
+            })
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
     render() {
         if (!this.props.authDetails.authenticated) {
             return <Redirect to="/login" />
         }
 
+        if (this.state.deleted) {
+            return <Redirect to="/botb-dashboard" />
+        }
+
         if (!this.state.loading) {
             if (new Date(new Date(this.state.endDate).toDateString()) < new Date(new Date().toDateString())) {
+                const winningTrack = this.getWinner();
                 return(
-                    <div>
-                        <p>This contest is over</p>
+                    <div className="App">
+                        {winningTrack !== null ?
+                            <div>
+                                <h4>This contest is over, {winningTrack.songName} by {winningTrack.artist} was the winner!</h4>
+                                <img alt="album-art" src={winningTrack.artwork} />
+                            </div> : null
+                        }
+                        <button onClick={this.updateBOTB} style={{margin: '25px'}} className="bandmatesButton">Start Again</button>
+                        <button onClick={this.deleteBOTB} style={{margin: '25px'}} className="bandmatesButton">End Contest</button>
                     </div>
                 )
             }
@@ -170,7 +243,7 @@ class BOTB extends React.Component {
                     {!this.state.loading && !this.state.loadingProfile ?
                         <div style={{margin: 'auto'}}>
                             <h2 style={{textAlign: 'center'}}>{this.state.name}</h2>
-                            <p style={{marginBottom: '25px', fontSize: 'small', color: 'gray'}}>Voting ends on {new Date(this.state.endDate).toISOString().slice(0, 10)}</p>
+                            <p style={{marginBottom: '25px', fontSize: 'small', color: 'gray'}}>Contest ends on {new Date(this.state.endDate).toISOString().slice(0, 10)}</p>
                             {Object.keys(this.state.tracksAdded).map((item, i) => {
                                 return(
                                     <div style={{display: 'flex', margin: '20px auto 20px auto', width: '70vw'}}>
@@ -196,8 +269,8 @@ class BOTB extends React.Component {
                                 )
                             })}
                             <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <Button onClick={this.trackModalPopup} style={{margin: '25px'}} className="addBOTBButton">Add Track</Button>
-                                <Button onClick={this.userModalPopup} style={{margin: '25px'}} className="addBOTBButton">Add User</Button>
+                                <button onClick={this.trackModalPopup} style={{margin: '25px'}} className="addBOTBButton">Add Track</button>
+                                <button onClick={this.userModalPopup} style={{margin: '25px'}} className="addBOTBButton">Add User</button>
                             </div>
                             <AddTrack showModal={this.state.showTrackModal} modalPopup={this.trackModalPopup} addTrack={this.addTrack} profile={this.state.profile} />
                             <AddUser showModal={this.state.showUserModal} modalPopup={this.userModalPopup} addUser={this.addUser} profile={this.state.profile} botbId={this.state.id} />

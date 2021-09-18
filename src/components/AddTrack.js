@@ -125,7 +125,7 @@ class AddTrack extends React.Component {
                         })}
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.props.modalPopup} className="bandmatesCloseButton">Close</Button>
+                        <button onClick={this.props.modalPopup} className="bandmatesCloseButton">Close</button>
                     </Modal.Footer>
                     </Modal>
                 </div>
