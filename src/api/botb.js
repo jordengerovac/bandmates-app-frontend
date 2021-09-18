@@ -59,3 +59,25 @@ export const removeVoteFromBOTBTrack = async(username, seedId, botbId, token) =>
         return Promise.reject(new Error(error));
     }
 }
+
+export const updateBOTB = async(id, botb, token) => {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+
+    try {
+        const response = axios.put('/api/v1/botb/update/' + id, botb, config)
+        return response
+    } catch(error) {
+        return Promise.reject(new Error(error));
+    }
+}
+
+export const deleteBOTB = async(botbId, token) => {
+    try {
+        const response = await axios.delete('/api/v1/botb/' + botbId,  { headers: {"Authorization" : `Bearer ${token}`} })
+        return response;
+    } catch (error) {
+        return Promise.reject(new Error(error));
+    }
+}
