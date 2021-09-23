@@ -221,7 +221,7 @@ class BOTB extends React.Component {
 
         if (!this.state.loading) {
             if (!this.state.users.includes(this.props.authDetails.username)) {
-                return <p>You do not have access to this page</p>
+                return <div className="App"><p>You do not have access to this page</p></div>
             }
         }
 

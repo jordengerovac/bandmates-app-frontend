@@ -7,8 +7,8 @@ import { getAllProfiles } from '../api/profiles';
 import { GiDrum, GiGuitarBassHead, GiGuitarHead } from 'react-icons/gi';
 import { ImHeadphones } from 'react-icons/im';
 import { IoIosMicrophone } from 'react-icons/io';
-import { FaUserCircle } from 'react-icons/fa';
 import BeatLoader from "react-spinners/BeatLoader";
+import ProfileIcon from './ProfileIcon';
 
 class Home extends React.Component {
     constructor() {
@@ -56,10 +56,7 @@ class Home extends React.Component {
                                             <div>
                                                 <h4 style={{textAlign: 'left'}}>Bandmates You May Know</h4>
                                                 <div className="homePageCard">
-                                                    {profile.image !== null ? 
-                                                        <img alt="profilePicture" style={{width: '50px', height: '50px', borderRadius: '50%'}} src={profile.image} /> : 
-                                                        <FaUserCircle color="gray" font-size="50px" />
-                                                    }
+                                                    <ProfileIcon iconColour={profile.iconColour} iconName={profile.iconName} size="50px" />
                                                     <p>{profile.user.firstname} {profile.user.lastname}</p>
                                                     <p>{profile.user.username}&nbsp;
                                                         {profile.instrument === 'drums' ? <GiDrum /> : null}

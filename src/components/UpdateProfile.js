@@ -6,6 +6,7 @@ import NavigationBar from './NavigationBar';
 import { getUser, updateUser } from '../api/users'; 
 import { createProfileForUser, updateProfile, uploadImageToProfile } from '../api/profiles';
 import BeatLoader from "react-spinners/BeatLoader";
+import IconSelection from './IconSelection';
 
 class UpdateProfile extends React.Component {
     constructor() {
@@ -17,6 +18,8 @@ class UpdateProfile extends React.Component {
             lastname: '',
             username: '',
             bio: '',
+            iconName: 'default',
+            iconColour: 'white',
             location: '',
             instrument: 'guitar',
             image_preview: null,
@@ -163,6 +166,8 @@ class UpdateProfile extends React.Component {
         const profile = {
             bio: this.state.bio,
             location: this.state.location,
+            iconName: this.state.iconName,
+            iconColour: this.state.iconColour,
             instrument: this.state.instrument
         };
 
@@ -179,6 +184,8 @@ class UpdateProfile extends React.Component {
     async updateProfile() {
         const profile = {
             bio: this.state.bio,
+            iconName: this.state.iconName,
+            iconColour: this.state.iconColour,
             location: this.state.location,
             instrument: this.state.instrument
         };
@@ -250,8 +257,13 @@ class UpdateProfile extends React.Component {
                                     <hr style={{color: 'white', margin: '30px 30vw'}}/>
 
                                     <div>
+                                        {/*
                                         <label for="image">Upload a profile picture:</label>
                                         <input type="file" name="image" onChange={this.handleImagePreview}></input>
+                                        */}
+
+                                        <IconSelection handleChange={this.handleChange} iconColour={this.state.iconColour} />
+
                                         <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio" defaultValue={this.state.profile !== null ? this.state.profile.bio : ''}></textarea>
                                         <div style={{margin: '40px 0'}}>
                                             <label for="location">Share your location to find nearby bandmates:</label>
