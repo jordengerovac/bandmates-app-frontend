@@ -11,6 +11,15 @@ export const getAllProfiles = async(token) => {
     }
 }
 
+export const getNearbyProfiles = async(username, token) => {
+    try {
+        const response = await axios.get('/api/v1/profiles/nearby/' + username, { headers: {"Authorization" : `Bearer ${token}`} })
+        return response;
+    } catch (error) {
+        return Promise.reject(new Error(error));
+    }
+}
+
 export const getProfileById = async(id, token) => {
     try {
         const response = await axios.get('/api/v1/profiles/' + id, { headers: {"Authorization" : `Bearer ${token}`} })
