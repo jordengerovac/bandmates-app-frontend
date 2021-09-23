@@ -3,12 +3,13 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
-import { getAllProfiles, getNearbyProfiles } from '../api/profiles';
+import { getNearbyProfiles } from '../api/profiles';
 import { GiDrum, GiGuitarBassHead, GiGuitarHead } from 'react-icons/gi';
 import { ImHeadphones } from 'react-icons/im';
 import { IoIosMicrophone } from 'react-icons/io';
 import BeatLoader from "react-spinners/BeatLoader";
 import ProfileIcon from './ProfileIcon';
+import FactOfTheDay from './FactOfTheDay';
 
 class Home extends React.Component {
     constructor() {
@@ -47,6 +48,7 @@ class Home extends React.Component {
                 <div className="App">
                     {!this.state.loading ?
                     <div style={{margin: '20px auto', width: '60vw'}}>
+                    <FactOfTheDay />
                     {this.state.profiles.length === 0 ? <h4>No nearby bandmates (you may need to update your location in your profile)</h4> : null}
                         <div>
                             <div style={{display: 'flex', flexWrap: 'wrap'}}>
