@@ -340,6 +340,14 @@ textarea:focus {
   border-radius: 10px;
 }
 
+.factOfTheDayCard {
+  margin: 15px 10px;
+  background-color: #212529;
+  border-radius: 10px;
+  text-align: center;
+  padding: 35px;
+}
+
 .homePageCard {
   margin: 15px 10px;
   width: 200px;
