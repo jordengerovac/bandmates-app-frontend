@@ -10,7 +10,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import { GiDrum, GiGuitarBassHead, GiGuitarHead } from 'react-icons/gi';
 import { ImHeadphones } from 'react-icons/im';
 import { IoIosMicrophone } from 'react-icons/io';
-import { FaUserCircle } from 'react-icons/fa';
+import ProfileIcon from './ProfileIcon';
 
 class Profile extends React.Component {
     constructor() {
@@ -88,10 +88,7 @@ class Profile extends React.Component {
                         Object.keys(this.state.profile).length >= 0 ?
                         <div> 
                             <div className="profileCard">
-                                {this.state.profile.image !== null ? 
-                                    <img className="profilePicture" alt="profile" src={`data:image/jpeg;base64,${this.state.profile.image}`} /> : 
-                                    <FaUserCircle color="gray" font-size="150px" />
-                                }
+                                <ProfileIcon iconName={this.state.profile.iconName} iconColour={this.state.profile.iconColour} size="150px" />
                                 <h2 style={{margin: '12px 0px 0px 0px'}}>{this.state.profile.user.firstname} {this.state.profile.user.lastname}</h2>
                                 <h6 style={{color: '#898989'}}>
                                     {this.state.profile.user.username}&nbsp;
