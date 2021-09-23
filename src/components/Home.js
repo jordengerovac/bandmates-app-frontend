@@ -3,7 +3,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom'
 import { connect } from  'react-redux';
 import NavigationBar from './NavigationBar';
-import { getAllProfiles } from '../api/profiles';
+import { getAllProfiles, getNearbyProfiles } from '../api/profiles';
 import { GiDrum, GiGuitarBassHead, GiGuitarHead } from 'react-icons/gi';
 import { ImHeadphones } from 'react-icons/im';
 import { IoIosMicrophone } from 'react-icons/io';
@@ -26,7 +26,7 @@ class Home extends React.Component {
 
     async getProfiles() {
         try {
-            const result = await getAllProfiles(this.props.authDetails.bandmates_access_token)
+            const result = await getNearbyProfiles(this.props.authDetails.username, this.props.authDetails.bandmates_access_token)
             this.setState({
                 profiles: result.data,
                 loading: false
@@ -47,7 +47,7 @@ class Home extends React.Component {
                 <div className="App">
                     {!this.state.loading ?
                     <div style={{margin: '20px auto', width: '60vw'}}>
-                    {this.state.profiles.length === 0 ? <h4>There's nobody else on Bandmates yet :(</h4> : null}
+                    {this.state.profiles.length === 0 ? <h4>No nearby bandmates (you may need to update your location in your profile)</h4> : null}
                         <div>
                             <div style={{display: 'flex', flexWrap: 'wrap'}}>
                                 {this.state.profiles.slice(0, 12).map((profile, i) => {

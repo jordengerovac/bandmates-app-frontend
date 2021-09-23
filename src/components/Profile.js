@@ -17,6 +17,7 @@ class Profile extends React.Component {
         super();
         this.state = {
             profile: {},
+            urlProfileId: '',
             spotifyData: null,
             trackUri: '',
             loadingProfile: true,
@@ -29,9 +30,25 @@ class Profile extends React.Component {
 
     componentDidMount() {
         const profileId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+        this.setState({
+            urlProfileId: profileId
+        })
         this.getUserProfile(profileId).then((profile) => {
             this.getSpotifyData(profile.user.username);
         });
+    }
+
+    componentDidUpdate(prevProps) {
+        const profileId = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+        if (this.state.urlProfileId !== profileId) {
+            this.setState({
+                urlProfileId: profileId,
+                loadingSpotifyData: true
+            })
+            this.getUserProfile(profileId).then((profile) => {
+                this.getSpotifyData(profile.user.username);
+            });
+        }
     }
 
     setPlayingTrack(uri) {
@@ -80,6 +97,7 @@ class Profile extends React.Component {
             return <Redirect to="/update-profile" />
         }
 
+        console.log(this.state)
         return(
             <div>
                 <NavigationBar />
