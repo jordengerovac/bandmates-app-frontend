@@ -3,7 +3,7 @@ import { REGISTRATION_ATTEMPTED } from '../actions/types';
 import store from '../store';
 import { axiosInstance } from '../api/axios'
 
-export const registerUser = async(firstname, lastname, username, password) => {
+export const createUser = async(firstname, lastname, username, password) => {
     try {
         const response = await axios.post('/api/v1/users/create', { 
             firstname: firstname,
@@ -19,6 +19,42 @@ export const registerUser = async(firstname, lastname, username, password) => {
             payload: true
         }
         store.dispatch(data)
+        return Promise.reject(new Error(error));
+    }
+}
+
+export const registerUser = async(firstname, lastname, username, password) => {
+    try {
+        const response = await axios.post('/api/v1/users/register', { 
+            firstname: firstname,
+            lastname: lastname,
+            username: username,
+            password: password,
+            roles: [] 
+        })
+        return response;
+    } catch (error) {
+        const data = {
+            type: REGISTRATION_ATTEMPTED,
+            payload: true
+        }
+        store.dispatch(data)
+        return Promise.reject(new Error(error));
+    }
+}
+
+export const confirmRegisteredUser = async(confirmationCode, token) => {
+    try {
+        const config = {
+            headers: { 
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        };
+
+        const response = await axios.get('/api/v1/users/confirm/' + confirmationCode, config)
+        return response;
+    } catch (error) {
         return Promise.reject(new Error(error));
     }
 }
