@@ -51,7 +51,7 @@ class Home extends React.Component {
                     <FactOfTheDay />
                     {this.state.profiles.length === 0 ? <h4>No nearby bandmates (you may need to update your location in your profile)</h4> : null}
                         <div>
-                            <h4 style={{textAlign: 'left'}}>Bandmates You May Know</h4>
+                            {this.state.profiles.length !== 0 ?<h4 style={{textAlign: 'left'}}>Bandmates You May Know</h4> : null}
                             <div style={{display: 'flex', flexWrap: 'wrap'}}>
                                 {this.state.profiles.slice(0, 12).map((profile, i) => {
                                     if (profile.user.username !== this.props.authDetails.username) {
