@@ -1,10 +1,10 @@
 import axios from 'axios';
 import store from '../store';
-import { axiosInstance } from '../api/axios'
+import axiosInstance from '../api/axios'
 
 export const getAllProfiles = async(token) => {
     try {
-        const response = await axios.get('/api/v1/profiles', { headers: {"Authorization" : `Bearer ${token}`} })
+        const response = await axiosInstance.get('/api/v1/profiles', { headers: {"Authorization" : `Bearer ${token}`} })
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
@@ -13,7 +13,7 @@ export const getAllProfiles = async(token) => {
 
 export const getNearbyProfiles = async(username, token) => {
     try {
-        const response = await axios.get('/api/v1/profiles/nearby/' + username, { headers: {"Authorization" : `Bearer ${token}`} })
+        const response = await axiosInstance.get('/api/v1/profiles/nearby/' + username, { headers: {"Authorization" : `Bearer ${token}`} })
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
@@ -22,7 +22,7 @@ export const getNearbyProfiles = async(username, token) => {
 
 export const getProfileById = async(id, token) => {
     try {
-        const response = await axios.get('/api/v1/profiles/' + id, { headers: {"Authorization" : `Bearer ${token}`} })
+        const response = await axiosInstance.get('/api/v1/profiles/' + id, { headers: {"Authorization" : `Bearer ${token}`} })
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
@@ -35,7 +35,7 @@ export const createProfileForUser = async(username, profile, token) => {
     };
 
     try {
-        const response = axios.post('/api/v1/profiles/users/' + username, profile, config)
+        const response = axiosInstance.post('/api/v1/profiles/users/' + username, profile, config)
         return response
     } catch(error) {
         return Promise.reject(new Error(error));
@@ -48,7 +48,7 @@ export const updateProfile = async(id, profile, token) => {
     };
 
     try {
-        const response = axios.put('/api/v1/profiles/update/' + id, profile, config)
+        const response = axiosInstance.put('/api/v1/profiles/update/' + id, profile, config)
         return response
     } catch(error) {
         return Promise.reject(new Error(error));
@@ -66,7 +66,7 @@ export const uploadImageToProfile = async(id, image, token) => {
     };
 
     try {
-        const response = axios.post('/api/v1/profiles/image/' + id, formData, config)
+        const response = axiosInstance.post('/api/v1/profiles/image/' + id, formData, config)
         return response
     } catch(error) {
         return Promise.reject(new Error(error));

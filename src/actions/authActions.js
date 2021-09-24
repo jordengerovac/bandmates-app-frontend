@@ -1,6 +1,6 @@
 import { FETCH_ACCESS_TOKEN, LOGOUT, LOGIN_ATTEMPTED, FETCH_SPOTIFY_TOKENS, REFRESH_ACCESS_TOKEN } from './types';
 import axios from 'axios';
-import { axiosInstance } from '../api/axios'
+import axiosInstance from '../api/axios'
 
 export const fetchAccessToken = (username, password) => dispatch => {
     var data = ''
@@ -8,7 +8,7 @@ export const fetchAccessToken = (username, password) => dispatch => {
     params.append('username', username)
     params.append('password', password)
 
-    axios.post('/api/v1/login', params)
+    axiosInstance.post('/api/v1/login', params)
     .then(res => {
         data = res.data
         dispatch({

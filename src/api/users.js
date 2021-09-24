@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { REGISTRATION_ATTEMPTED } from '../actions/types';
 import store from '../store';
-import { axiosInstance } from '../api/axios'
+import axiosInstance from '../api/axios'
 
 export const createUser = async(firstname, lastname, username, password) => {
     try {
-        const response = await axios.post('/api/v1/users/create', { 
+        const response = await axiosInstance.post('/api/v1/users/create', { 
             firstname: firstname,
             lastname: lastname,
             username: username,
@@ -25,7 +25,7 @@ export const createUser = async(firstname, lastname, username, password) => {
 
 export const registerUser = async(firstname, lastname, username, password) => {
     try {
-        const response = await axios.post('/api/v1/users/register', { 
+        const response = await axiosInstance.post('/api/v1/users/register', { 
             firstname: firstname,
             lastname: lastname,
             username: username,
@@ -45,7 +45,7 @@ export const registerUser = async(firstname, lastname, username, password) => {
 
 export const confirmRegisteredUser = async(confirmationCode) => {
     try {
-        const response = await axios.get('/api/v1/users/confirm/' + confirmationCode)
+        const response = await axiosInstance.get('/api/v1/users/confirm/' + confirmationCode)
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
@@ -65,7 +65,7 @@ export const addRoleToUser = async(username, roleName, token) => {
         formData.append("username", username)
         formData.append("roleName", roleName)
 
-        const response = await axios.post('/api/v1/roles/add-to-user', formData, config)
+        const response = await axiosInstance.post('/api/v1/roles/add-to-user', formData, config)
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
