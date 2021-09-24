@@ -22,7 +22,7 @@ class RegistrationConfirmation extends React.Component {
 
     async confirmRegistration(code) {
         try {
-            const result = await confirmRegisteredUser(code, this.props.authDetails.bandmates_access_token);
+            const result = await confirmRegisteredUser(code);
             this.setState({
                 user: result.data,
                 loading: false
