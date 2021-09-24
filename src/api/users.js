@@ -43,16 +43,9 @@ export const registerUser = async(firstname, lastname, username, password) => {
     }
 }
 
-export const confirmRegisteredUser = async(confirmationCode, token) => {
+export const confirmRegisteredUser = async(confirmationCode) => {
     try {
-        const config = {
-            headers: { 
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'multipart/form-data'
-            }
-        };
-
-        const response = await axios.get('/api/v1/users/confirm/' + confirmationCode, config)
+        const response = await axios.get('/api/v1/users/confirm/' + confirmationCode)
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
