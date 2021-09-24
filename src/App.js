@@ -14,6 +14,7 @@ import BOTBDashboard from './components/BOTBDashboard';
 import CreateBOTB from './components/CreateBOTB';
 import BOTB from './components/BOTB';
 import AddTrack from './components/AddTrack';
+import RegistrationConfirmation from './components/RegistrationConfirmation';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/create-botb" component={CreateBOTB} />
         <Route path="/botb" component={BOTB} />
         <Route path="/add-track" component={AddTrack} />
+        <Route path="/confirm-registration" component={RegistrationConfirmation} />
       </Switch>
     </BrowserRouter>
   );

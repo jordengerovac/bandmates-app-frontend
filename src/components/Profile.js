@@ -97,7 +97,6 @@ class Profile extends React.Component {
             return <Redirect to="/update-profile" />
         }
 
-        console.log(this.state)
         return(
             <div>
                 <NavigationBar />

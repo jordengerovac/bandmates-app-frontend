@@ -2,7 +2,6 @@ import '../App.css';
 import React from 'react';
 import { connect } from  'react-redux';
 import { fetchAccessToken } from '../actions/authActions'
-import { Link } from 'react-router-dom';
 import { REGISTRATION_ATTEMPTED } from '../actions/types';
 import store from '../store';
 import { registerUser } from '../api/users';
@@ -18,7 +17,8 @@ class Register extends React.Component {
             password2: '',
             registered: false,
             invalidFields: {},
-            errors: {}
+            errors: {},
+            submitting: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleFormValidation = this.handleFormValidation.bind(this);
@@ -99,6 +99,9 @@ class Register extends React.Component {
         e.preventDefault();
         const formIsValid = this.handleFormValidation();
         if (formIsValid) {
+            this.setState({
+                submitting: true
+            })
             this.registerUser();
         }
     }
@@ -107,13 +110,15 @@ class Register extends React.Component {
         try {
             await registerUser(this.state.firstname, this.state.lastname, this.state.username, this.state.password1)
             this.setState({
-                registered: true
+                registered: true,
+                submitting: false
             })
         } catch (error) {
             let errors = {}
             errors["register"] = "An error occurred during registration"
             this.setState({
-                errors: errors
+                errors: errors,
+                submitting: false
             })
         }
     }
@@ -122,7 +127,7 @@ class Register extends React.Component {
         if (this.state.registered) {
             return (
                 <div className="App">
-                    <p>You have successfully registered! Click <Link to="/login" style={{textDecoration: 'none', color: '#008216'}}>here</Link> to login</p>
+                    <p>You have successfully registered! You will receive an email confirmation in your email inbox shortly.</p>
                 </div>
             )
         }
@@ -145,7 +150,7 @@ class Register extends React.Component {
                         {this.state.invalidFields["password"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["password"]}</p> : null}
                         <input type="password" placeholder="password" value={this.state.password1} onChange={this.handleChange} name="password1"></input>
                         <input type="password" placeholder="retype password" value={this.state.password2} onChange={this.handleChange} name="password2" invalid="true"></input>
-                        <input type="submit" value="Submit" className="bandmatesSubmitButton" />
+                        <input type="submit" value={this.state.submitting ? "Submitting..." : "Submit"} className="bandmatesSubmitButton" disabled={this.state.submitting ? true : false} />
                     </form>
                 </div>
                 {this.props.authDetails.invalid_registration ? <p style={{color: 'red'}}>An error occurred during registration (email may already be taken)</p> : null}
