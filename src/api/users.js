@@ -74,7 +74,7 @@ export const addRoleToUser = async(username, roleName, token) => {
 
 export const getQueriedUsers = async(query, token) => {
     try {
-        const response = await axios.get('/api/v1/users/query/?search=' + '(firstname:\'*' + query + '*\' OR lastname:\'*' + query + '*\' OR username: \'*' + query + '*\')', { headers: {"Authorization" : `Bearer ${token}`} })
+        const response = await axiosInstance.get('/api/v1/users/query/?search=' + '(firstname:\'*' + query + '*\' OR lastname:\'*' + query + '*\' OR username: \'*' + query + '*\')', { headers: {"Authorization" : `Bearer ${token}`} })
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
@@ -83,7 +83,7 @@ export const getQueriedUsers = async(query, token) => {
 
 export const getUserProfile = async(username, token) => {
     try {
-        const response = await axios.get('/api/v1/users/' + username + '/profiles', { headers: {"Authorization" : `Bearer ${token}`} })
+        const response = await axiosInstance.get('/api/v1/users/' + username + '/profiles', { headers: {"Authorization" : `Bearer ${token}`} })
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
@@ -92,7 +92,7 @@ export const getUserProfile = async(username, token) => {
 
 export const getUser = async(username, token) => {
     try {
-        const response = await axios.get('/api/v1/users/' + username, { headers: {"Authorization" : `Bearer ${token}`} })
+        const response = await axiosInstance.get('/api/v1/users/' + username, { headers: {"Authorization" : `Bearer ${token}`} })
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
@@ -105,7 +105,7 @@ export const updateUser = async(id, user, token) => {
     };
 
     try {
-        const response = axios.put('/api/v1/users/update/' + id, user, config)
+        const response = axiosInstance.put('/api/v1/users/update/' + id, user, config)
         return response
     } catch(error) {
         return Promise.reject(new Error(error));
