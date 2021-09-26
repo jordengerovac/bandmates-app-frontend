@@ -5,11 +5,11 @@ import { REFRESH_ACCESS_TOKEN } from '../actions/types';
 const axiosInstance = axios.create({
     baseURL: process.env.REACT_APP_BASEURL,
     headers: {
-        'Authorization': store.getState().authDetails.bandmates_access_token
+        'Authorization': 'Bearer ' + store.getState().authDetails.bandmates_access_token
     }
 });
 
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
     response => response,
     async function (error) {
         const originalRequest = error.config;
@@ -28,7 +28,7 @@ axios.interceptors.response.use(
 
 async function fetchRefreshToken() {
     var token = ''
-    await fetch('/api/v1/token/refresh', {
+    await fetch(process.env.REACT_APP_BASEURL + '/api/v1/token/refresh', {
         method: 'get', 
         headers: new Headers({
             'Authorization': 'Bearer ' + store.getState().authDetails.bandmates_refresh_token,

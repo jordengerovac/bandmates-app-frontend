@@ -1,5 +1,4 @@
 import { FETCH_ACCESS_TOKEN, LOGOUT, LOGIN_ATTEMPTED, FETCH_SPOTIFY_TOKENS, REFRESH_ACCESS_TOKEN } from './types';
-import axios from 'axios';
 import axiosInstance from '../api/axios'
 
 export const fetchAccessToken = (username, password) => dispatch => {
@@ -26,7 +25,7 @@ export const fetchAccessToken = (username, password) => dispatch => {
 }
 
 export const refreshAccessToken = (refresh_token) => dispatch => {
-    fetch('/api/v1/token/refresh', {
+    fetch(process.env.REACT_APP_BASEURL + '/api/v1/token/refresh', {
         method: 'get', 
         headers: new Headers({
             'Authorization': 'Bearer ' + refresh_token

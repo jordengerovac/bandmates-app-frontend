@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { REGISTRATION_ATTEMPTED } from '../actions/types';
 import store from '../store';
 import axiosInstance from '../api/axios'

@@ -1,5 +1,3 @@
-import axios from 'axios';
-import store from '../store';
 import axiosInstance from '../api/axios'
 
 export const initializeSpotify = async(username, code, token) => {
