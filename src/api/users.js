@@ -1,6 +1,7 @@
 import { REGISTRATION_ATTEMPTED } from '../actions/types';
 import store from '../store';
 import axiosInstance from '../api/axios'
+import axios from 'axios';
 
 export const createUser = async(firstname, lastname, username, password) => {
     try {
@@ -24,7 +25,7 @@ export const createUser = async(firstname, lastname, username, password) => {
 
 export const registerUser = async(firstname, lastname, username, password) => {
     try {
-        const response = await axiosInstance.post('/api/v1/users/register', { 
+        const response = await axios.post(process.env.REACT_APP_BASEURL + '/api/v1/users/register', { 
             firstname: firstname,
             lastname: lastname,
             username: username,
@@ -44,7 +45,7 @@ export const registerUser = async(firstname, lastname, username, password) => {
 
 export const confirmRegisteredUser = async(confirmationCode) => {
     try {
-        const response = await axiosInstance.get('/api/v1/users/confirm/' + confirmationCode)
+        const response = await axios.get(process.env.REACT_APP_BASEURL + '/api/v1/users/confirm/' + confirmationCode)
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));
@@ -73,7 +74,7 @@ export const addRoleToUser = async(username, roleName, token) => {
 
 export const getQueriedUsers = async(query, token) => {
     try {
-        const response = await axiosInstance.get('/api/v1/users/query/?search=' + '(firstname:\'*' + query + '*\' OR lastname:\'*' + query + '*\' OR username: \'*' + query + '*\')', { headers: {"Authorization" : `Bearer ${token}`} })
+        const response = await axiosInstance.get('/api/v1/users/query/?search=(firstname:\'*' + query + '*\' OR lastname:\'*' + query + '*\' OR username: \'*' + query + '*\')', { headers: {"Authorization" : `Bearer ${token}`} })
         return response;
     } catch (error) {
         return Promise.reject(new Error(error));

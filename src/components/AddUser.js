@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 import { connect } from  'react-redux';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { getQueriedUsers } from '../api/users';
-import BeatLoader from "react-spinners/BeatLoader";
 import { GiDrum, GiGuitarBassHead, GiGuitarHead } from 'react-icons/gi';
 import { ImHeadphones } from 'react-icons/im';
 import { IoIosMicrophone } from 'react-icons/io';
