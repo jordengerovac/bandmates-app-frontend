@@ -236,7 +236,6 @@ button.bandmatesShareButton:hover {
 
 input[type="submit"].bandmatesSubmitButton {
   text-align: center;
-  display: flex;
   width: 120px;
   height: 40px;
   border: 0;
