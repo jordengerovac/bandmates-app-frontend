@@ -6,7 +6,7 @@ import NavigationBar from './NavigationBar';
 import { fetchSpotifyData } from '../api/spotifydata';
 import BeatLoader from "react-spinners/BeatLoader";
 
-const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize?response_type=code&client_id=95c5f746df16436882efa3d4ebf3b9fa&redirect_uri=http://localhost:3000/connect-spotify&scope=streaming%20user-read-recently-played%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20user-top-read"
+const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize?response_type=code&client_id=95c5f746df16436882efa3d4ebf3b9fa&redirect_uri=https://fervent-goldstine-bb072c.netlify.app/connect-spotify&scope=streaming%20user-read-recently-played%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-read-currently-playing%20user-top-read"
 
 class SpotifyData extends React.Component {
     constructor() {
