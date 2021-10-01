@@ -50,7 +50,7 @@ class FactOfTheDay extends React.Component {
         const randomElement = new Date().getDate() % facts.length;
         return(
             <div style={{marginBottom: '80px'}}>
-                <h4 style={{textAlign: 'left'}}>Music Fact Of The Day</h4>
+                <h4 style={{textAlign: 'left', marginLeft: '15px'}}>Music Fact Of The Day</h4>
                 <div className="factOfTheDayCard">
                     <p style={{marginBottom: '30px', fontSize: '21px', color: '#01961a'}}>{facts[randomElement].fact}</p>
                     <p>{facts[randomElement].description}</p>

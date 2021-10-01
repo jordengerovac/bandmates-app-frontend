@@ -472,9 +472,34 @@ textarea:focus {
   opacity: 1;
 }
 
+.homePage {
+  margin: 20px auto;
+  width: 60vw;
+}
+
+.dropdown-menu {
+  text-align: right !important;
+}
+
+.navbar-collapse {
+  text-align: right;
+}
+
+.d-flex {
+  float: right;
+}
+
 @media only screen and (max-width: 700px) {
   .userSearchResult {
     display: block;
     text-align: center;
+  }
+
+  .homePage {
+    width: 85vw;
+  }
+
+  textarea {
+    width: 300px;
   }
 }

@@ -7,7 +7,7 @@ import { GiBearFace, GiMonkey, GiFoxHead, GiPirateCaptain, GiNinjaHead, GiAstron
 class IconSelection extends React.Component {
     render() {
         return(
-            <div style={{display: 'flex', justifyContent: 'center', margin: '30px'}}>
+            <div style={{display: 'flex', justifyContent: 'center', margin: '30px', flexWrap: 'wrap'}}>
                 <div>
                     <fieldset name="iconName" onChange={this.props.handleChange}>
                         <div>
