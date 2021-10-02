@@ -254,8 +254,8 @@ class BOTB extends React.Component {
                             {Object.keys(this.state.tracksAdded).map((item, i) => {
                                 return(
                                     <div style={{display: 'flex', margin: '20px auto 20px auto', width: '70vw'}}>
-                                        <div key={i} style={{display: 'flex', justifyContent: 'space-between', margin: '0px auto 0px auto', textAlign: 'left', backgroundColor: '#1b1d20', width: '70%', cursor: 'pointer'}} onClick={() => this.setPlayingTrack(this.state.tracksAdded[item].uri)}>
-                                            <div>
+                                        <div className="botbSongCard" key={i} onClick={() => this.setPlayingTrack(this.state.tracksAdded[item].uri)}>
+                                            <div className="botbAlbumArt">
                                                 <img alt="album-art" src={this.state.tracksAdded[item].artwork} style={{marginRight: '15px', width: 'auto', maxHeight: '150px'}}/>
                                             </div>
                                             <div style={{padding: '25px 40px 0px 0px'}}>
@@ -263,7 +263,7 @@ class BOTB extends React.Component {
                                                 <p style={{fontSize: 'small', color: 'gray', textAlign: 'right', padding: '0px'}}>added by {item}</p>
                                             </div>
                                         </div>
-                                        <div style={{position: 'relative', top: '50px', right: '75px'}}>
+                                        <div style={{position: 'relative', top: '50px', right: '5vw'}}>
                                             <div>
                                                 {this.state.trackVotes[this.props.authDetails.username] === this.state.tracksAdded[item].seedId ? 
                                                     <BsFillHeartFill size={"30px"} color="#df3030" style={{cursor: 'pointer'}} onClick={() => this.removeVoteFromTrack(this.state.tracksAdded[item].seedId)} /> :

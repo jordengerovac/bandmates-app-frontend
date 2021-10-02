@@ -424,18 +424,18 @@ textarea:focus {
 }
 
 .topTracksCard {
-  margin: 0 40px 40px 40px;
+  margin: 0px 40px 40px 40px;
   padding: 20px 0;
   background-color: #1b1d20;
   border-radius: 10px;
 }
 
 .leftProfile {
-  width: 70vw;
+  width: 60vw;
 }
 
 .rightProfile {
-  width: 30vw;
+  width: 40vw;
 }
 
 .modal-content {
@@ -477,16 +477,31 @@ textarea:focus {
   width: 60vw;
 }
 
-.dropdown-menu {
-  text-align: right !important;
+.navbar-collapse {
+  text-align: right;
 }
 
-.navbar-collapse {
+#navbarScroll > div > div > div {
   text-align: right;
 }
 
 .d-flex {
   float: right;
+}
+
+.spotifyProfile {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.botbSongCard {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px auto 0px auto; 
+  text-align: left;
+  background-color: #1b1d20;
+  width: 70%;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 700px) {
@@ -501,5 +516,41 @@ textarea:focus {
 
   textarea {
     width: 300px;
+  }
+
+  .modal-header { 
+    flex-wrap: wrap;
+  }
+
+  .userSearchResult {
+    flex-wrap: wrap;
+    width: 80vw;
+  }
+
+  .logoutModal {
+    width: 60vw;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .leftProfile {
+    width: 100vw !important;
+  }
+  
+  .rightProfile {
+    width: 100vw !important;
+  }
+
+  .recentlyPlayedCard {
+    margin: 0px 40px 40px 40px;
+  }
+
+  .botbSongCard {
+    flex-wrap: wrap;
+  }
+
+  .botbAlbumArt {
+    margin: auto;
+    padding: 15px;
   }
 }

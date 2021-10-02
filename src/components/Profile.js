@@ -118,7 +118,7 @@ class Profile extends React.Component {
                                 <p style={{margin: '22px auto 0px auto', width: '32vw'}}>{this.state.profile.bio}</p>
                             </div>
                             {this.state.spotifyData !== null ?
-                                <div style={{display: 'flex'}}>
+                                <div className="spotifyProfile">
                                     <div className="leftProfile">
 
                                         <div className="topTracksCard">
