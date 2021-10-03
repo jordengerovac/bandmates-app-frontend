@@ -154,7 +154,9 @@ class UpdateProfile extends React.Component {
                 this.setState({
                     bio: result.data.profile.bio,
                     location: result.data.profile.location,
-                    instrument: result.data.profile.instrument
+                    instrument: result.data.profile.instrument,
+                    iconColour: result.data.profile.iconColour,
+                    iconName: result.data.profile.iconName
                 })
             }
         } catch(error) {
@@ -262,7 +264,7 @@ class UpdateProfile extends React.Component {
                                         <input type="file" name="image" onChange={this.handleImagePreview}></input>
                                         */}
 
-                                        <IconSelection handleChange={this.handleChange} iconColour={this.state.iconColour} />
+                                        <IconSelection handleChange={this.handleChange} iconColour={this.state.iconColour} iconName={this.state.iconName} />
 
                                         <textarea placeholder="bio" value={this.state.bio} onChange={this.handleChange} name="bio" defaultValue={this.state.profile !== null ? this.state.profile.bio : ''}></textarea>
                                         <div style={{margin: '40px 0'}}>
