@@ -16,7 +16,6 @@ class UpdateProfile extends React.Component {
             userId: '',
             firstname: '',
             lastname: '',
-            username: '',
             bio: '',
             iconName: 'default',
             iconColour: 'white',
@@ -66,12 +65,6 @@ class UpdateProfile extends React.Component {
         let invalidFields = {}
         let errors = {}
 
-        if (this.state.username === '') {
-            errors["username"] = "Email must not be empty";
-            invalidFields["username"] = true
-            formIsValid = false
-        }
-
         if (this.state.firstname === '') {
             errors["firstname"] = "First name must not be empty";
             invalidFields["firstname"] = true
@@ -82,18 +75,6 @@ class UpdateProfile extends React.Component {
             errors["lastname"] = "Last name must not be empty";
             invalidFields["lastname"] = true
             formIsValid = false
-        }
-
-        if (this.state.username !== '') {
-            let lastAtPos = this.state.username.lastIndexOf('@');
-            let lastDotPos = this.state.username.lastIndexOf('.');
-
-            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && this.state.username.indexOf('@@') === -1 && lastDotPos > 2 && (this.state.username.length - lastDotPos) > 2)) {
-                formIsValid = false;
-                errors["username"] = "Email is not valid";
-                invalidFields["username"] = true
-                formIsValid = false
-            }
         }
 
         this.setState({
@@ -146,7 +127,6 @@ class UpdateProfile extends React.Component {
                 profile: result.data.profile,
                 firstname: result.data.firstname,
                 lastname: result.data.lastname,
-                username: result.data.username,
                 userId: result.data.id,
                 loading: false
             })
@@ -205,8 +185,7 @@ class UpdateProfile extends React.Component {
     async updateUser() {
         const user = {
             firstname: this.state.firstname,
-            lastname: this.state.lastname,
-            username: this.state.username,
+            lastname: this.state.lastname
         };
 
         try {
@@ -253,9 +232,7 @@ class UpdateProfile extends React.Component {
 
                                     {this.state.invalidFields["lastname"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["lastname"]}</p> : null}
                                     <input type="text" placeholder="last name" value={this.state.lastname} onChange={this.handleChange} name="lastname"></input>
-
-                                    {this.state.invalidFields["username"] ? <p style={{color: 'red', margin: '0px'}}>{this.state.errors["username"]}</p> : null}
-                                    <input type="text" placeholder="email" value={this.state.username} onChange={this.handleChange} name="username"></input>
+                                    
                                     <hr style={{color: 'white', margin: '30px 30vw'}}/>
 
                                     <div>
