@@ -367,6 +367,7 @@ textarea:focus {
 .homePageCard > p:nth-child(3) {
   font-size: small;
   color: lightgray;
+  word-wrap: break-word;
 }
 
 .homePageCard > img {
@@ -485,7 +486,8 @@ textarea:focus {
   text-align: right;
 }
 
-.d-flex {
+.form-flex {
+  display: flex;
   float: right;
 }
 
@@ -504,10 +506,43 @@ textarea:focus {
   cursor: pointer;
 }
 
+.bandmatesYouMayKnow {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.addUser {
+  display: flex;
+  justify-content: space-between;
+  text-align: 'left';
+  width: 30vw;
+}
+
+.addTrack {
+  display: flex;
+  justify-content: left;
+  margin: 30px 50px;
+  text-align: left;
+}
+
 @media only screen and (max-width: 700px) {
   .userSearchResult {
     display: block;
     text-align: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .addUser {
+    width: 100%;
+  }
+
+  .addTrack {
+    margin: 30px 10px;
+  }
+
+  .bandmatesYouMayKnow {
+    justify-content: center;
   }
 
   .homePage {
@@ -518,13 +553,22 @@ textarea:focus {
     width: 300px;
   }
 
-  .modal-header { 
-    flex-wrap: wrap;
+  .bandmatesSearchButton.btn.btn-primary {
+    margin: 10px;
+    float: right;
   }
 
-  .userSearchResult {
-    flex-wrap: wrap;
-    width: 80vw;
+  .modal-title {
+    text-align: center !important;
+  }
+
+  .form-flex {
+    display: block;
+  }
+
+  .modal-header { 
+    flex-wrap: wrap !important;
+    display: block !important;
   }
 
   .logoutModal {

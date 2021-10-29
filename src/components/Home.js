@@ -52,7 +52,7 @@ class Home extends React.Component {
                     {this.state.profiles.length === 0 ? <h4>No nearby bandmates (you may need to update your location in your profile)</h4> : null}
                         <div>
                             {this.state.profiles.length !== 0 ?<h4 style={{textAlign: 'left', marginLeft: '15px'}}>Bandmates You May Know</h4> : null}
-                            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                            <div className="bandmatesYouMayKnow">
                                 {this.state.profiles.slice(0, 12).map((profile, i) => {
                                     if (profile.user.username !== this.props.authDetails.username) {
                                         return(
