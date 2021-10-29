@@ -75,7 +75,7 @@ class AddUser extends React.Component {
                     <Modal.Title id="contained-modal-title-vcenter">
                         Search for a user
                     </Modal.Title>
-                    <Form className="d-flex" style={{margin: '0 0 0 20px'}}>
+                    <Form className="form-flex" style={{margin: '0 0 0 20px'}}>
                     <FormControl
                         type="search"
                         placeholder="Search"
@@ -92,7 +92,7 @@ class AddUser extends React.Component {
                 <Modal.Body>
                 {this.state.queriedUsers.map((user, i) => {
                     return(
-                        <div className="userSearchResult"  key={i} style={{display: 'flex', justifyContent: 'space-between', textAlign: 'left', width: '30vw'}}>
+                        <div className="userSearchResult addUser"  key={i}>
                             <div>
                                 <p>{user.firstname} {user.lastname}</p>
                                 <p>

@@ -99,7 +99,7 @@ class AddTrack extends React.Component {
                         <Modal.Title id="contained-modal-title-vcenter">
                             Search for a track to add
                         </Modal.Title>
-                        <Form className="d-flex" style={{margin: '0 0 0 20px'}}>
+                        <Form className="form-flex" style={{margin: '0 0 0 20px'}}>
                             <FormControl
                                 type="search"
                                 placeholder="Search for a track"
@@ -116,7 +116,7 @@ class AddTrack extends React.Component {
                     <Modal.Body>
                         {this.state.searchResults.map((track, i) => {
                             return(
-                                <div key={i} style={{display: 'flex', justifyContent: 'left', margin: '30px 50px', textAlign: 'left'}}>
+                                <div className="addTrack" key={i}>
                                     <img alt="album-art" src={track.album.images[2].url} style={{width: '50px', height: '50px', cursor: 'pointer', marginRight: '15px'}}/>
                                     <p style={{cursor: 'pointer', marginTop: '12px'}}>{track.name} by {track.artists[0].name}</p>
                                     <button className="addTrackButton" onClick={() => this.handleAddTrack(track.artists[0].name, track.name, track.uri,track.album.images[1].url, track.id)}><AiOutlinePlus /></button>
