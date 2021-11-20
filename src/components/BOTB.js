@@ -253,17 +253,19 @@ class BOTB extends React.Component {
                             <p style={{marginBottom: '25px', fontSize: 'small', color: 'gray'}}>Contest ends on {new Date(this.state.endDate).toISOString().slice(0, 10)}</p>
                             {Object.keys(this.state.tracksAdded).map((item, i) => {
                                 return(
-                                    <div style={{display: 'flex', margin: '20px auto 20px auto', width: '70vw'}}>
+                                    <div style={{display: 'flex', margin: '20px auto 20px auto', width: '70vw', justifyContent: 'space-between'}}>
+                                        <div className="leftGhostDiv">
+                                        </div>
                                         <div className="botbSongCard" key={i} onClick={() => this.setPlayingTrack(this.state.tracksAdded[item].uri)}>
                                             <div className="botbAlbumArt">
-                                                <img alt="album-art" src={this.state.tracksAdded[item].artwork} style={{marginRight: '15px', width: 'auto', maxHeight: '150px'}}/>
+                                                <img alt="album-art" src={this.state.tracksAdded[item].artwork}/>
                                             </div>
-                                            <div style={{padding: '25px 40px 0px 0px'}}>
+                                            <div className="botbSongInfo">
                                                 <p style={{cursor: 'pointer', margin: '12px 0px 0px 0px', fontSize: 'large', textAlign: 'right'}}>{this.state.tracksAdded[item].songName} by {this.state.tracksAdded[item].artist}</p>
                                                 <p style={{fontSize: 'small', color: 'gray', textAlign: 'right', padding: '0px'}}>added by {item}</p>
                                             </div>
                                         </div>
-                                        <div style={{position: 'relative', top: '50px', right: '5vw'}}>
+                                        <div className="songHeart">
                                             <div>
                                                 {this.state.trackVotes[this.props.authDetails.username] === this.state.tracksAdded[item].seedId ? 
                                                     <BsFillHeartFill size={"30px"} color="#df3030" style={{cursor: 'pointer'}} onClick={() => this.removeVoteFromTrack(this.state.tracksAdded[item].seedId)} /> :

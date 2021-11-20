@@ -502,7 +502,7 @@ textarea:focus {
   margin: 0px auto 0px auto; 
   text-align: left;
   background-color: #1b1d20;
-  width: 70%;
+  width: 75%;
   cursor: pointer;
 }
 
@@ -523,6 +523,26 @@ textarea:focus {
   justify-content: left;
   margin: 30px 50px;
   text-align: left;
+}
+
+.botbAlbumArt > img {
+  margin-right: 15px; 
+  width: auto;
+  max-height: 150px;
+}
+
+.botbSongInfo {
+  padding: 25px 40px 0px 0px;
+}
+
+.songHeart {
+  position: relative;
+  top: 50px;
+}
+
+.leftGhostDiv,
+.songHeart {
+  flex: 1;
 }
 
 @media only screen and (max-width: 700px) {
@@ -597,4 +617,21 @@ textarea:focus {
     margin: auto;
     padding: 15px;
   }
+
+  .botbAlbumArt > img {
+    margin-right: 0px;
+  }
+
+  .botbSongInfo {
+    padding: 5px;
+  }
+
+  .botbSongInfo > p {
+    text-align: center !important;
+  }
+
+  .songHeart {
+    left: 3vw;
+  }
+
 }
